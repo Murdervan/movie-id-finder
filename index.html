@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Film Link Finder</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; }
+    input { padding: 5px; font-size: 16px; width: 300px; }
+    button { padding: 5px 10px; font-size: 16px; margin-left: 5px; }
+    a { display: block; margin: 5px 0; color: blue; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Film Link Finder</h1>
+  <p>Skriv navnet på en film:</p>
+  <input type="text" id="filmTitle" placeholder="Fx The Godfather">
+  <button onclick="searchFilm()">Søg film</button>
+
+  <h2>Resultat:</h2>
+  <div id="result"></div>
+
+  <script>
+    function searchFilm() {
+      const title = document.getElementById("filmTitle").value.trim();
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "";
+
+      if (!title) {
+        alert("Indtast et filmnavn!");
+        return;
+      }
+
+      const imdbLink = `https://www.imdb.com/find?q=${encodeURIComponent(title)}`;
+      const tmdbLink = `https://www.themoviedb.org/search?query=${encodeURIComponent(title)}`;
+
+      resultDiv.innerHTML = `
+        <a href="${imdbLink}" target="_blank">Søg IMDb: ${title}</a>
+        <a href="${tmdbLink}" target="_blank">Søg TMDb: ${title}</a>
+      `;
+    }
+  </script>
+</body>
+</html>
