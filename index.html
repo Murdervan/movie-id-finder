@@ -2,40 +2,71 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Film Link Finder</title>
+  <title>Movie Link Finder</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; }
-    input { padding: 5px; font-size: 16px; width: 300px; }
-    button { padding: 5px 10px; font-size: 16px; margin-left: 5px; }
-    a { display: block; margin: 5px 0; color: blue; text-decoration: underline; }
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-left: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #1f80e0;
+      color: white;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+    a {
+      display: block;
+      margin: 10px 0;
+      color: #1f80e0;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>Film Link Finder</h1>
-  <p>Skriv navnet på en film:</p>
-  <input type="text" id="filmTitle" placeholder="Fx The Godfather">
-  <button onclick="searchFilm()">Søg film</button>
+  <h1>Movie Link Finder</h1>
+  <p>Type the name of a movie:</p>
+  <input type="text" id="movieTitle" placeholder="e.g. The Godfather">
+  <button onclick="searchMovie()">Search</button>
 
-  <h2>Resultat:</h2>
+  <h2>Results:</h2>
   <div id="result"></div>
 
   <script>
-    function searchFilm() {
-      const title = document.getElementById("filmTitle").value.trim();
+    function searchMovie() {
+      const title = document.getElementById("movieTitle").value.trim();
       const resultDiv = document.getElementById("result");
       resultDiv.innerHTML = "";
 
       if (!title) {
-        alert("Indtast et filmnavn!");
+        alert("Please enter a movie title!");
         return;
       }
 
-      const imdbLink = `https://www.imdb.com/find?q=${encodeURIComponent(title)}`;
-      const tmdbLink = `https://www.themoviedb.org/search?query=${encodeURIComponent(title)}`;
+      // Construct IMDb and TMDb search URLs
+      const imdbSearch = `https://www.imdb.com/find?q=${encodeURIComponent(title)}`;
+      const tmdbSearch = `https://www.themoviedb.org/search?query=${encodeURIComponent(title)}`;
 
       resultDiv.innerHTML = `
-        <a href="${imdbLink}" target="_blank">Søg IMDb: ${title}</a>
-        <a href="${tmdbLink}" target="_blank">Søg TMDb: ${title}</a>
+        <a href="${imdbSearch}" target="_blank">IMDb Search for: "${title}"</a>
+        <a href="${tmdbSearch}" target="_blank">TMDb Search for: "${title}"</a>
       `;
     }
   </script>
