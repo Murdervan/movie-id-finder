@@ -71,7 +71,7 @@
   .movie-info {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     flex-grow: 1;
   }
 
@@ -79,6 +79,20 @@
     font-size: 20px;
     margin-bottom: 5px;
     color: #1da1f2;
+  }
+
+  .badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    background-color: #2a2a2a;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #ccc;
   }
 
   .id-box {
@@ -90,6 +104,8 @@
     border-radius: 8px;
     font-size: 14px;
     gap: 10px;
+    border: 2px solid transparent;
+    transition: border 0.2s, background-color 0.2s;
   }
 
   .id-box a {
@@ -100,6 +116,14 @@
 
   .id-box a:hover {
     text-decoration: underline;
+  }
+
+  .tmdb {
+    border-color: #1da1f2;
+  }
+
+  .imdb {
+    border-color: #f1c40f;
   }
 
   .copy-btn {
@@ -115,6 +139,10 @@
 
   .copy-btn:hover {
     background-color: #0d8ddb;
+  }
+
+  .copy-btn.copied {
+    background-color: #2ecc71 !important;
   }
 
   footer {
@@ -166,17 +194,21 @@ const q = document.getElementById("q");
 const results = document.getElementById("results");
 const counter = document.getElementById("counter");
 
-// ✅ LocalStorage visit counter
+// LocalStorage visit counter
 let visits = localStorage.getItem("visits") || 0;
 visits++;
 localStorage.setItem("visits", visits);
 counter.textContent = visits;
 
-// Copy ID function
-function copyToClipboard(id) {
-  navigator.clipboard.writeText(id).then(() => {
-    alert(`Copied: ${id}`);
-  });
+// Copy ID function with animation
+function copyToClipboard(id, button) {
+  navigator.clipboard.writeText(id);
+  button.textContent = "Copied!";
+  button.classList.add("copied");
+  setTimeout(() => {
+    button.textContent = "Copy";
+    button.classList.remove("copied");
+  }, 1500);
 }
 
 q.oninput = async () => {
@@ -197,23 +229,28 @@ q.oninput = async () => {
       ? `https://image.tmdb.org/t/p/w200${m.poster_path}` 
       : "https://via.placeholder.com/100x150?text=No+Image";
 
-    // Links
     const tmdbLink = `https://www.themoviedb.org/movie/${m.id}`;
     const imdbLink = d.imdb_id ? `https://www.imdb.com/title/${d.imdb_id}/` : "#";
 
+    // genre badges
+    const genreBadges = d.genres && d.genres.length > 0
+      ? d.genres.map(g => `<span class="badge">${g.name}</span>`).join("")
+      : "";
+
     results.innerHTML += `
       <div class="movie">
-        <img src="${poster}" alt="${m.title}">
+        <img src="${poster}" alt="${m.title}" loading="lazy">
         <div class="movie-info">
-          <b>${m.title}</b>
-          <div class="id-box">
+          <b>${m.title} (${d.release_date ? d.release_date.slice(0,4) : "N/A"})</b>
+          <div class="badges">${genreBadges}</div>
+          <div class="id-box tmdb">
             <a href="${tmdbLink}" target="_blank">TMDB ID: ${m.id}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${m.id}')">Copy</button>
+            <button class="copy-btn" onclick="copyToClipboard('${m.id}', this)">Copy</button>
           </div>
           ${d.imdb_id ? `
-          <div class="id-box">
+          <div class="id-box imdb">
             <a href="${imdbLink}" target="_blank">IMDb ID: ${d.imdb_id}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${d.imdb_id}')">Copy</button>
+            <button class="copy-btn" onclick="copyToClipboard('${d.imdb_id}', this)">Copy</button>
           </div>` : ''}
         </div>
       </div>
@@ -224,5 +261,4 @@ q.oninput = async () => {
 
 </body>
 </html>
-
 
