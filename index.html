@@ -8,19 +8,19 @@
 :root {
   --bg-color: #121212;
   --text-color: #ffffff;
-  --card-bg: #1e1e1e;
+  --card-bg: rgba(30,30,30,0.85); /* lidt transparent så baggrund ses */
   --tmdb-color: #1da1f2;
   --imdb-color: #f1c40f;
-  --badge-bg: #2a2a2a;
+  --badge-bg: rgba(42,42,42,0.8);
 }
 
 body.light {
   --bg-color: #f5f5f5;
   --text-color: #121212;
-  --card-bg: #ffffff;
+  --card-bg: rgba(255,255,255,0.85);
   --tmdb-color: #1da1f2;
   --imdb-color: #f1c40f;
-  --badge-bg: #e0e0e0;
+  --badge-bg: rgba(224,224,224,0.8);
 }
 
 body {
@@ -33,6 +33,23 @@ body {
   flex-direction: column;
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
+
+  /* Baggrundsbillede */
+  background-image: url("https://github.com/Murdervan/movie-id-finder/blob/main/image/movie-ID-finder-logo.png?raw=true");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Overlay for at gøre teksten læsbar */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  z-index: -1;
 }
 
 header {
@@ -64,28 +81,27 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 20px;
+  padding: 60px 20px 30px 20px;
   flex: 1; /* gør footer sticky */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Overskrift + logo */
+/* Overskrift */
 .title-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 25px;
-}
-
-.title-container img {
-  width: 120px;
-  height: auto;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .title-container h1 {
-  font-size: 40px;
-  color: var(--tmdb-color);
+  font-size: 60px;
+  font-weight: bold;
   margin: 0;
+  /* Gradient farver inspireret af logo */
+  background: linear-gradient(90deg, #1da1f2, #f1c40f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
 
 input {
@@ -198,7 +214,6 @@ footer a:hover { text-decoration: underline; }
 
 <main>
   <div class="title-container">
-    <img src="https://github.com/Murdervan/movie-id-finder/blob/main/image/movie-ID-finder-logo.png?raw=true" alt="Logo">
     <h1>Movie ID Finder</h1>
   </div>
 
