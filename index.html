@@ -32,26 +32,10 @@
     transition: background-color 0.3s, color 0.3s;
   }
 
-  header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: var(--card-bg);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  header h2 {
-    margin: 0;
-    font-size: 28px;
-    display: none; /* skjul tekst, vi bruger logo */
-  }
-
+  /* Dark/light toggle button */
   #toggle-mode {
-    position: absolute;
+    position: fixed;
+    top: 20px;
     right: 20px;
     cursor: pointer;
     padding: 6px 12px;
@@ -61,21 +45,35 @@
     background-color: var(--tmdb-color);
     color: #fff;
     transition: background-color 0.3s;
+    z-index: 1000;
   }
-
   #toggle-mode:hover { background-color: #0d8ddb; }
 
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 80px 20px 20px 20px; /* top padding for toggle */
   }
 
-  #header-img {
-    max-width: 300px;
-    margin: 20px 0;
-    border-radius: 12px;
+  /* Header area */
+  .header-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .header-area img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .header-area h2 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--tmdb-color);
   }
 
   input {
@@ -212,16 +210,19 @@
 </head>
 <body>
 
-<header>
-  <img id="header-img" src="https://github.com/Murdervan/movie-id-finder/blob/main/image/movie-ID-finder-logo.png?raw=true" alt="Movie ID Finder Logo">
-  <button id="toggle-mode">🌙 / ☀️</button>
-</header>
+<button id="toggle-mode">🌙 / ☀️</button>
 
 <main>
+  <div class="header-area">
+    <img src="https://github.com/Murdervan/movie-id-finder/blob/main/image/movie-ID-finder-logo.png?raw=true" alt="Logo">
+    <h2>Movie ID Finder</h2>
+  </div>
+
   <div style="position: relative; width: 100%; max-width: 500px;">
     <input id="q" placeholder="Search for a movie">
     <div id="autocomplete-list"></div>
   </div>
+
   <div id="results"></div>
 </main>
 
@@ -276,10 +277,8 @@ q.addEventListener("input", async () => {
     autocompleteList.appendChild(item);
   });
 
-  // If user presses enter, show first result
-  if(data.results.length > 0 && document.activeElement === q) {
-    displayMovie(data.results[0].id);
-  }
+  // Display first result
+  if(data.results.length > 0 && document.activeElement === q) displayMovie(data.results[0].id);
 });
 
 async function displayMovie(id) {
@@ -314,4 +313,5 @@ async function displayMovie(id) {
 
 </body>
 </html>
+
 
