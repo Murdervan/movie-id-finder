@@ -50,7 +50,7 @@
   .movie {
     display: flex;
     gap: 20px;
-    align-items: center;
+    align-items: flex-start;
     background-color: #1e1e1e;
     padding: 15px;
     border-radius: 12px;
@@ -63,27 +63,43 @@
   }
 
   .movie img {
-    width: 80px;
+    width: 100px;
     border-radius: 8px;
+    flex-shrink: 0;
   }
 
   .movie-info {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
+    flex-grow: 1;
   }
 
   .movie-info b {
-    font-size: 18px;
-    margin-bottom: 3px;
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #1da1f2;
   }
 
-  .movie-info span {
-    font-size: 14px;
-    color: #cccccc;
+  .id-box {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
+    background-color: #2a2a2a;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .id-box a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .id-box a:hover {
+    text-decoration: underline;
   }
 
   .copy-btn {
@@ -179,15 +195,26 @@ q.oninput = async () => {
 
     const poster = m.poster_path 
       ? `https://image.tmdb.org/t/p/w200${m.poster_path}` 
-      : "https://via.placeholder.com/80x120?text=No+Image";
+      : "https://via.placeholder.com/100x150?text=No+Image";
+
+    // Links
+    const tmdbLink = `https://www.themoviedb.org/movie/${m.id}`;
+    const imdbLink = d.imdb_id ? `https://www.imdb.com/title/${d.imdb_id}/` : "#";
 
     results.innerHTML += `
       <div class="movie">
         <img src="${poster}" alt="${m.title}">
         <div class="movie-info">
           <b>${m.title}</b>
-          <span>TMDB ID: ${m.id} <button class="copy-btn" onclick="copyToClipboard('${m.id}')">Copy</button></span>
-          <span>IMDb ID: ${d.imdb_id || "N/A"} ${d.imdb_id ? `<button class="copy-btn" onclick="copyToClipboard('${d.imdb_id}')">Copy</button>` : ""}</span>
+          <div class="id-box">
+            <a href="${tmdbLink}" target="_blank">TMDB ID: ${m.id}</a>
+            <button class="copy-btn" onclick="copyToClipboard('${m.id}')">Copy</button>
+          </div>
+          ${d.imdb_id ? `
+          <div class="id-box">
+            <a href="${imdbLink}" target="_blank">IMDb ID: ${d.imdb_id}</a>
+            <button class="copy-btn" onclick="copyToClipboard('${d.imdb_id}')">Copy</button>
+          </div>` : ''}
         </div>
       </div>
     `;
@@ -197,4 +224,5 @@ q.oninput = async () => {
 
 </body>
 </html>
+
 
