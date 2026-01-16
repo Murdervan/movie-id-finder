@@ -34,22 +34,26 @@
 
   header {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px 40px;
+    padding: 20px;
     background-color: var(--card-bg);
     box-shadow: 0 2px 6px rgba(0,0,0,0.5);
     position: sticky;
     top: 0;
     z-index: 100;
+    position: relative;
   }
 
   header h2 {
     margin: 0;
     color: var(--tmdb-color);
+    font-size: 28px;
   }
 
   #toggle-mode {
+    position: absolute;
+    right: 20px;
     cursor: pointer;
     padding: 6px 12px;
     border-radius: 6px;
@@ -60,9 +64,7 @@
     transition: background-color 0.3s;
   }
 
-  #toggle-mode:hover {
-    background-color: #0d8ddb;
-  }
+  #toggle-mode:hover { background-color: #0d8ddb; }
 
   main {
     display: flex;
@@ -75,6 +77,7 @@
     max-width: 350px;
     margin: 20px 0;
     border-radius: 12px;
+    display: block;
   }
 
   input {
@@ -165,12 +168,7 @@
     transition: border 0.2s, background-color 0.2s;
   }
 
-  .id-box a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: bold;
-  }
-
+  .id-box a { color: var(--text-color); text-decoration: none; font-weight: bold; }
   .tmdb { border-color: var(--tmdb-color); }
   .imdb { border-color: var(--imdb-color); }
 
@@ -189,13 +187,29 @@
   .copy-btn.copied { background-color: #2ecc71 !important; }
 
   footer {
-    margin: 50px 0 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #888888;
+    margin-top: 50px;
+    width: 100%;
+    background-color: var(--card-bg);
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 2px solid #333;
   }
 
-  footer a { color: var(--tmdb-color); text-decoration: none; }
+  footer h3 {
+    margin: 0 0 10px 0;
+    color: var(--tmdb-color);
+  }
+
+  footer p {
+    margin: 2px 0;
+    color: #ccc;
+    text-align: center;
+    max-width: 600px;
+  }
+
+  footer a { color: var(--tmdb-color); text-decoration: none; margin-top: 10px; }
   footer a:hover { text-decoration: underline; }
 </style>
 </head>
@@ -213,6 +227,8 @@
 </main>
 
 <footer>
+  <h3>Movie ID Finder</h3>
+  <p>Find TMDB and IMDb IDs quickly with ratings, genres, and a short overview. Perfect for developers, movie buffs, or anyone needing quick movie references.</p>
   <a href="https://github.com/murdervan" target="_blank"><i class="fab fa-github"></i> Visit my GitHub</a>
 </footer>
 
@@ -224,44 +240,32 @@ const toggleBtn = document.getElementById("toggle-mode");
 
 // Dark/light mode toggle
 if(localStorage.getItem("mode") === "light") document.body.classList.add("light");
-
 toggleBtn.addEventListener("click", () => {
   document.body.classList.toggle("light");
   localStorage.setItem("mode", document.body.classList.contains("light") ? "light" : "dark");
 });
 
-// Copy ID function with animation
+// Copy ID function
 function copyToClipboard(id, button) {
   navigator.clipboard.writeText(id);
   button.textContent = "Copied!";
   button.classList.add("copied");
-  setTimeout(() => {
-    button.textContent = "Copy";
-    button.classList.remove("copied");
-  }, 1500);
+  setTimeout(() => { button.textContent = "Copy"; button.classList.remove("copied"); }, 1500);
 }
 
 q.oninput = async () => {
   results.innerHTML = "";
   if (q.value.length < 2) return;
 
-  const res = await fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(q.value)}`
-  );
+  const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(q.value)}`);
   const data = await res.json();
 
   for (const m of data.results) {
-    const d = await fetch(
-      `https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}`
-    ).then(r => r.json());
+    const d = await fetch(`https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}`).then(r => r.json());
 
-    const poster = m.poster_path 
-      ? `https://image.tmdb.org/t/p/w200${m.poster_path}` 
-      : "https://via.placeholder.com/100x150?text=No+Image";
-
+    const poster = m.poster_path ? `https://image.tmdb.org/t/p/w200${m.poster_path}` : "https://via.placeholder.com/100x150?text=No+Image";
     const tmdbLink = `https://www.themoviedb.org/movie/${m.id}`;
     const imdbLink = d.imdb_id ? `https://www.imdb.com/title/${d.imdb_id}/` : "#";
-
     const genreBadges = d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
 
     results.innerHTML += `
@@ -271,7 +275,7 @@ q.oninput = async () => {
           <b>${m.title} (${d.release_date ? d.release_date.slice(0,4) : "N/A"})</b>
           <div class="badges">${genreBadges}</div>
           <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
-          <p>${d.overview?.slice(0,150)}${d.overview?.length > 150 ? "..." : ""}</p>
+          <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
           <div class="id-box tmdb">
             <a href="${tmdbLink}" target="_blank">TMDB ID: ${m.id}</a>
             <button class="copy-btn" onclick="copyToClipboard('${m.id}', this)">Copy</button>
@@ -290,4 +294,3 @@ q.oninput = async () => {
 
 </body>
 </html>
-
