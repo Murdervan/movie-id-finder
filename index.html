@@ -27,23 +27,29 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    padding: 40px 20px;
-    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
     transition: background-color 0.3s, color 0.3s;
   }
 
-  h2 {
-    text-align: center;
-    margin-bottom: 10px;
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  header h2 {
+    margin: 0;
     color: var(--tmdb-color);
   }
 
   #toggle-mode {
-    margin-bottom: 20px;
     cursor: pointer;
     padding: 6px 12px;
     border-radius: 6px;
@@ -58,15 +64,22 @@
     background-color: #0d8ddb;
   }
 
-  img#header-img {
-    max-width: 300px;
-    margin-bottom: 20px;
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  #header-img {
+    max-width: 350px;
+    margin: 20px 0;
     border-radius: 12px;
   }
 
   input {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     padding: 12px 15px;
     font-size: 16px;
     border-radius: 8px;
@@ -76,13 +89,11 @@
     color: var(--text-color);
   }
 
-  input:focus {
-    outline: 2px solid var(--tmdb-color);
-  }
+  input:focus { outline: 2px solid var(--tmdb-color); }
 
   #results {
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -118,8 +129,13 @@
 
   .movie-info b {
     font-size: 20px;
-    margin-bottom: 5px;
     color: var(--tmdb-color);
+  }
+
+  .movie-info p {
+    font-size: 14px;
+    color: #ccc;
+    margin: 4px 0;
   }
 
   .badges {
@@ -155,10 +171,6 @@
     font-weight: bold;
   }
 
-  .id-box a:hover {
-    text-decoration: underline;
-  }
-
   .tmdb { border-color: var(--tmdb-color); }
   .imdb { border-color: var(--imdb-color); }
 
@@ -177,40 +189,31 @@
   .copy-btn.copied { background-color: #2ecc71 !important; }
 
   footer {
-    margin-top: 50px;
+    margin: 50px 0 20px;
     text-align: center;
     font-size: 14px;
     color: #888888;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
   }
 
-  footer a {
-    color: var(--tmdb-color);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
+  footer a { color: var(--tmdb-color); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
-  .github-logo { font-size: 18px; }
 </style>
 </head>
 <body>
 
-<h2>Movie ID Finder</h2>
-<button id="toggle-mode">Toggle Light/Dark Mode</button>
-<img id="header-img" src="https://pasteboard.co/npqf3lcVwzOV.png" alt="Header Image">
-<input id="q" placeholder="Search for a movie">
-<div id="results"></div>
+<header>
+  <h2>Movie ID Finder</h2>
+  <button id="toggle-mode">🌙 / ☀️</button>
+</header>
+
+<main>
+  <img id="header-img" src="https://pasteboard.co/npqf3lcVwzOV.png" alt="Header Image">
+  <input id="q" placeholder="Search for a movie">
+  <div id="results"></div>
+</main>
 
 <footer>
-  <a href="https://github.com/murdervan" target="_blank">
-    <i class="fab fa-github github-logo"></i> Visit my GitHub
-  </a>
+  <a href="https://github.com/murdervan" target="_blank"><i class="fab fa-github"></i> Visit my GitHub</a>
 </footer>
 
 <script>
@@ -220,8 +223,7 @@ const results = document.getElementById("results");
 const toggleBtn = document.getElementById("toggle-mode");
 
 // Dark/light mode toggle
-const currentMode = localStorage.getItem("mode") || "dark";
-if(currentMode === "light") document.body.classList.add("light");
+if(localStorage.getItem("mode") === "light") document.body.classList.add("light");
 
 toggleBtn.addEventListener("click", () => {
   document.body.classList.toggle("light");
@@ -260,9 +262,7 @@ q.oninput = async () => {
     const tmdbLink = `https://www.themoviedb.org/movie/${m.id}`;
     const imdbLink = d.imdb_id ? `https://www.imdb.com/title/${d.imdb_id}/` : "#";
 
-    const genreBadges = d.genres && d.genres.length > 0
-      ? d.genres.map(g => `<span class="badge">${g.name}</span>`).join("")
-      : "";
+    const genreBadges = d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
 
     results.innerHTML += `
       <div class="movie">
@@ -270,6 +270,8 @@ q.oninput = async () => {
         <div class="movie-info">
           <b>${m.title} (${d.release_date ? d.release_date.slice(0,4) : "N/A"})</b>
           <div class="badges">${genreBadges}</div>
+          <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
+          <p>${d.overview?.slice(0,150)}${d.overview?.length > 150 ? "..." : ""}</p>
           <div class="id-box tmdb">
             <a href="${tmdbLink}" target="_blank">TMDB ID: ${m.id}</a>
             <button class="copy-btn" onclick="copyToClipboard('${m.id}', this)">Copy</button>
