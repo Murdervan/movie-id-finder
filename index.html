@@ -1,98 +1,20 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-<meta charset="UTF-8">
-<title>Movie ID Finder</title>
-
-<style>
-body {
-  background:#121212;
-  color:white;
-  font-family:Arial;
-  max-width:800px;
-  margin:auto;
-  padding:20px;
-}
-input {
-  width:100%;
-  padding:12px;
-  font-size:16px;
-  border-radius:6px;
-  border:none;
-}
-.movie {
-  display:flex;
-  gap:15px;
-  background:#1e1e1e;
-  margin-top:15px;
-  padding:10px;
-  border-radius:8px;
-}
-.movie img {
-  width:80px;
-  border-radius:5px;
-}
-.movie h3 {
-  margin:0;
-}
-.small {
-  color:#aaa;
-  font-size:14px;
-}
-a {
-  color:#4da3ff;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Movie ID Finder</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <h1>🎬 Movie ID Finder</h1>
-<p>Søg og se alle film med billeder & ID</p>
+<p>Søg film og få IMDb + TMDB ID (uden API)</p>
 
-<input id="search" placeholder="Skriv fx: Crank" oninput="searchMovie()">
+<input id="search" placeholder="Søg fx: Crank">
 
+<div id="status">Indlæser filmdatabasen…</div>
 <div id="results"></div>
 
-<script>
-const API_KEY = "INDSÆT_DIN_TMDB_API_KEY";
-const IMG = "https://image.tmdb.org/t/p/w200";
-
-async function searchMovie() {
-  const q = search.value.trim();
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "";
-
-  if (q.length < 2) return;
-
-  const res = await fetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(q)}`
-  );
-  const data = await res.json();
-
-  for (const movie of data.results) {
-    const detailsRes = await fetch(
-      `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}`
-    );
-    const details = await detailsRes.json();
-
-    resultsDiv.innerHTML += `
-      <div class="movie">
-        <img src="${movie.poster_path ? IMG + movie.poster_path : ''}">
-        <div>
-          <h3>${movie.title} (${movie.release_date?.slice(0,4) || "N/A"})</h3>
-          <div class="small">
-            TMDB ID: ${movie.id}<br>
-            IMDb ID: ${details.imdb_id || "N/A"}
-          </div>
-          <a href="https://www.imdb.com/title/${details.imdb_id}" target="_blank">IMDb</a> |
-          <a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank">TMDB</a>
-        </div>
-      </div>
-    `;
-  }
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
