@@ -5,22 +5,63 @@
 <title>Movie ID Finder</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
+  :root {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --card-bg: #1e1e1e;
+    --tmdb-color: #1da1f2;
+    --imdb-color: #f1c40f;
+    --badge-bg: #2a2a2a;
+  }
+
+  body.light {
+    --bg-color: #f5f5f5;
+    --text-color: #121212;
+    --card-bg: #ffffff;
+    --tmdb-color: #1da1f2;
+    --imdb-color: #f1c40f;
+    --badge-bg: #e0e0e0;
+  }
+
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212;
-    color: #ffffff;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
     padding: 40px 20px;
     justify-content: flex-start;
+    transition: background-color 0.3s, color 0.3s;
   }
 
   h2 {
     text-align: center;
+    margin-bottom: 10px;
+    color: var(--tmdb-color);
+  }
+
+  #toggle-mode {
     margin-bottom: 20px;
-    color: #1da1f2;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    background-color: var(--tmdb-color);
+    color: #fff;
+    transition: background-color 0.3s;
+  }
+
+  #toggle-mode:hover {
+    background-color: #0d8ddb;
+  }
+
+  img#header-img {
+    max-width: 300px;
+    margin-bottom: 20px;
+    border-radius: 12px;
   }
 
   input {
@@ -31,12 +72,12 @@
     border-radius: 8px;
     border: none;
     margin-bottom: 30px;
-    background-color: #1e1e1e;
-    color: #ffffff;
+    background-color: var(--card-bg);
+    color: var(--text-color);
   }
 
   input:focus {
-    outline: 2px solid #1da1f2;
+    outline: 2px solid var(--tmdb-color);
   }
 
   #results {
@@ -51,7 +92,7 @@
     display: flex;
     gap: 20px;
     align-items: flex-start;
-    background-color: #1e1e1e;
+    background-color: var(--card-bg);
     padding: 15px;
     border-radius: 12px;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -78,7 +119,7 @@
   .movie-info b {
     font-size: 20px;
     margin-bottom: 5px;
-    color: #1da1f2;
+    color: var(--tmdb-color);
   }
 
   .badges {
@@ -88,18 +129,18 @@
   }
 
   .badge {
-    background-color: #2a2a2a;
+    background-color: var(--badge-bg);
     padding: 2px 6px;
     border-radius: 6px;
     font-size: 12px;
-    color: #ccc;
+    color: var(--text-color);
   }
 
   .id-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2a2a2a;
+    background-color: var(--badge-bg);
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 14px;
@@ -109,7 +150,7 @@
   }
 
   .id-box a {
-    color: #ffffff;
+    color: var(--text-color);
     text-decoration: none;
     font-weight: bold;
   }
@@ -118,16 +159,11 @@
     text-decoration: underline;
   }
 
-  .tmdb {
-    border-color: #1da1f2;
-  }
-
-  .imdb {
-    border-color: #f1c40f;
-  }
+  .tmdb { border-color: var(--tmdb-color); }
+  .imdb { border-color: var(--imdb-color); }
 
   .copy-btn {
-    background-color: #1da1f2;
+    background-color: var(--tmdb-color);
     border: none;
     border-radius: 4px;
     color: #fff;
@@ -137,13 +173,8 @@
     transition: background-color 0.2s;
   }
 
-  .copy-btn:hover {
-    background-color: #0d8ddb;
-  }
-
-  .copy-btn.copied {
-    background-color: #2ecc71 !important;
-  }
+  .copy-btn:hover { background-color: #0d8ddb; }
+  .copy-btn.copied { background-color: #2ecc71 !important; }
 
   footer {
     margin-top: 50px;
@@ -157,48 +188,45 @@
   }
 
   footer a {
-    color: #1da1f2;
+    color: var(--tmdb-color);
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 5px;
   }
 
-  footer a:hover {
-    text-decoration: underline;
-  }
-
-  .github-logo {
-    font-size: 18px;
-  }
+  footer a:hover { text-decoration: underline; }
+  .github-logo { font-size: 18px; }
 </style>
 </head>
 <body>
 
 <h2>Movie ID Finder</h2>
+<button id="toggle-mode">Toggle Light/Dark Mode</button>
+<img id="header-img" src="https://pasteboard.co/npqf3lcVwzOV.png" alt="Header Image">
 <input id="q" placeholder="Search for a movie">
-
 <div id="results"></div>
 
 <footer>
   <a href="https://github.com/murdervan" target="_blank">
     <i class="fab fa-github github-logo"></i> Visit my GitHub
   </a>
-  <div>Your visit count: <span id="counter">0</span></div>
 </footer>
 
 <script>
 const API_KEY = "b7a512be09653a21e9b9cc99a026ae46";
-
 const q = document.getElementById("q");
 const results = document.getElementById("results");
-const counter = document.getElementById("counter");
+const toggleBtn = document.getElementById("toggle-mode");
 
-// LocalStorage visit counter
-let visits = localStorage.getItem("visits") || 0;
-visits++;
-localStorage.setItem("visits", visits);
-counter.textContent = visits;
+// Dark/light mode toggle
+const currentMode = localStorage.getItem("mode") || "dark";
+if(currentMode === "light") document.body.classList.add("light");
+
+toggleBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+  localStorage.setItem("mode", document.body.classList.contains("light") ? "light" : "dark");
+});
 
 // Copy ID function with animation
 function copyToClipboard(id, button) {
@@ -232,7 +260,6 @@ q.oninput = async () => {
     const tmdbLink = `https://www.themoviedb.org/movie/${m.id}`;
     const imdbLink = d.imdb_id ? `https://www.imdb.com/title/${d.imdb_id}/` : "#";
 
-    // genre badges
     const genreBadges = d.genres && d.genres.length > 0
       ? d.genres.map(g => `<span class="badge">${g.name}</span>`).join("")
       : "";
