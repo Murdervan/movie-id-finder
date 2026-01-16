@@ -32,10 +32,20 @@
     transition: background-color 0.3s, color 0.3s;
   }
 
-  /* Dark/light toggle button */
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
   #toggle-mode {
-    position: fixed;
-    top: 20px;
+    position: absolute;
     right: 20px;
     cursor: pointer;
     padding: 6px 12px;
@@ -45,34 +55,27 @@
     background-color: var(--tmdb-color);
     color: #fff;
     transition: background-color 0.3s;
-    z-index: 1000;
   }
+
   #toggle-mode:hover { background-color: #0d8ddb; }
 
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 80px 20px 20px 20px; /* top padding for toggle */
+    padding: 20px;
   }
 
-  /* Header area */
-  .header-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+  #header-img {
+    max-width: 400px;
+    margin-bottom: 15px;
+    border-radius: 12px;
   }
 
-  .header-area img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-  }
-
-  .header-area h2 {
-    margin: 0;
-    font-size: 28px;
+  h1 {
+    font-size: 32px;
+    margin: 10px 0 20px 0;
+    text-align: center;
     color: var(--tmdb-color);
   }
 
@@ -83,39 +86,12 @@
     font-size: 16px;
     border-radius: 8px;
     border: none;
-    margin-bottom: 0;
+    margin-bottom: 20px;
     background-color: var(--card-bg);
     color: var(--text-color);
   }
 
   input:focus { outline: 2px solid var(--tmdb-color); }
-
-  /* Autocomplete dropdown */
-  #autocomplete-list {
-    width: 100%;
-    max-width: 500px;
-    background-color: var(--card-bg);
-    border: 1px solid #333;
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    position: absolute;
-    z-index: 999;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    overflow: hidden;
-  }
-
-  .autocomplete-item {
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .autocomplete-item:hover {
-    background-color: var(--tmdb-color);
-    color: #fff;
-  }
 
   #results {
     width: 100%;
@@ -170,7 +146,6 @@
     font-size: 14px;
     gap: 10px;
     border: 2px solid transparent;
-    transition: border 0.2s, background-color 0.2s;
   }
 
   .id-box a { color: var(--text-color); text-decoration: none; font-weight: bold; }
@@ -202,7 +177,6 @@
     border-top: 2px solid #333;
   }
 
-  footer h3 { margin: 0 0 10px 0; color: var(--tmdb-color); }
   footer p { margin: 2px 0; color: #ccc; text-align: center; max-width: 600px; }
   footer a { color: var(--tmdb-color); text-decoration: none; margin-top: 10px; }
   footer a:hover { text-decoration: underline; }
@@ -210,25 +184,19 @@
 </head>
 <body>
 
-<button id="toggle-mode">🌙 / ☀️</button>
+<header>
+  <img id="header-img" src="https://github.com/Murdervan/movie-id-finder/blob/main/image/movie-ID-finder-logo.png?raw=true" alt="Movie ID Finder Logo">
+  <button id="toggle-mode">🌙 / ☀️</button>
+</header>
 
 <main>
-  <div class="header-area">
-    <img src="https://github.com/Murdervan/movie-id-finder/blob/main/image/movie-ID-finder-logo.png?raw=true" alt="Logo">
-    <h2>Movie ID Finder</h2>
-  </div>
-
-  <div style="position: relative; width: 100%; max-width: 500px;">
-    <input id="q" placeholder="Search for a movie">
-    <div id="autocomplete-list"></div>
-  </div>
-
+  <h1>Movie ID Finder</h1>
+  <input id="q" placeholder="Search for a movie">
   <div id="results"></div>
 </main>
 
 <footer>
-  <h3>Movie ID Finder</h3>
-  <p>Find TMDB and IMDb IDs quickly with ratings, genres, and a short overview. Perfect for developers, movie buffs, or anyone needing quick movie references.</p>
+  <p>&copy; 2026 Movie ID Finder. All rights reserved.</p>
   <a href="https://github.com/murdervan" target="_blank"><i class="fab fa-github"></i> Visit my GitHub</a>
 </footer>
 
@@ -237,7 +205,6 @@ const API_KEY = "b7a512be09653a21e9b9cc99a026ae46";
 const q = document.getElementById("q");
 const results = document.getElementById("results");
 const toggleBtn = document.getElementById("toggle-mode");
-const autocompleteList = document.getElementById("autocomplete-list");
 
 // Dark/light mode
 if(localStorage.getItem("mode") === "light") document.body.classList.add("light");
@@ -254,61 +221,42 @@ function copyToClipboard(id, button) {
   setTimeout(() => { button.textContent = "Copy"; button.classList.remove("copied"); }, 1500);
 }
 
-// Live autocomplete + search
+// Search movies on input
 q.addEventListener("input", async () => {
-  autocompleteList.innerHTML = "";
   results.innerHTML = "";
-  const query = q.value.trim();
-  if(query.length < 2) return;
+  if(q.value.length < 2) return;
 
-  const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+  const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(q.value)}`);
   const data = await res.json();
 
-  // Autocomplete items
-  data.results.slice(0,5).forEach(movie => {
-    const item = document.createElement("div");
-    item.classList.add("autocomplete-item");
-    item.textContent = movie.title;
-    item.addEventListener("click", () => {
-      q.value = movie.title;
-      autocompleteList.innerHTML = "";
-      displayMovie(movie.id);
-    });
-    autocompleteList.appendChild(item);
-  });
+  for(const m of data.results){
+    const d = await fetch(`https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}`).then(r => r.json());
+    const poster = d.poster_path ? `https://image.tmdb.org/t/p/w200${d.poster_path}` : "https://via.placeholder.com/100x150?text=No+Image";
+    const tmdbLink = `https://www.themoviedb.org/movie/${d.id}`;
+    const imdbLink = d.imdb_id ? `https://www.imdb.com/title/${d.imdb_id}/` : "#";
+    const genreBadges = d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
 
-  // Display first result
-  if(data.results.length > 0 && document.activeElement === q) displayMovie(data.results[0].id);
-});
-
-async function displayMovie(id) {
-  const d = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`).then(r => r.json());
-  const poster = d.poster_path ? `https://image.tmdb.org/t/p/w200${d.poster_path}` : "https://via.placeholder.com/100x150?text=No+Image";
-  const tmdbLink = `https://www.themoviedb.org/movie/${d.id}`;
-  const imdbLink = d.imdb_id ? `https://www.imdb.com/title/${d.imdb_id}/` : "#";
-  const genreBadges = d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
-
-  results.innerHTML = `
-    <div class="movie">
-      <img src="${poster}" alt="${d.title}" loading="lazy">
-      <div class="movie-info">
-        <b>${d.title} (${d.release_date ? d.release_date.slice(0,4) : "N/A"})</b>
-        <div class="badges">${genreBadges}</div>
-        <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
-        <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
-        <div class="id-box tmdb">
-          <a href="${tmdbLink}" target="_blank">TMDB ID: ${d.id}</a>
-          <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
+    results.innerHTML += `
+      <div class="movie">
+        <img src="${poster}" alt="${d.title}" loading="lazy">
+        <div class="movie-info">
+          <b>${d.title} (${d.release_date ? d.release_date.slice(0,4) : "N/A"})</b>
+          <div class="badges">${genreBadges}</div>
+          <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
+          <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
+          <div class="id-box tmdb">
+            <a href="${tmdbLink}" target="_blank">TMDB ID: ${d.id}</a>
+            <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
+          </div>
+          ${d.imdb_id ? `<div class="id-box imdb">
+            <a href="${imdbLink}" target="_blank">IMDb ID: ${d.imdb_id}</a>
+            <button class="copy-btn" onclick="copyToClipboard('${d.imdb_id}', this)">Copy</button>
+          </div>` : ''}
         </div>
-        ${d.imdb_id ? `
-        <div class="id-box imdb">
-          <a href="${imdbLink}" target="_blank">IMDb ID: ${d.imdb_id}</a>
-          <button class="copy-btn" onclick="copyToClipboard('${d.imdb_id}', this)">Copy</button>
-        </div>` : ''}
       </div>
-    </div>
-  `;
-}
+    `;
+  }
+});
 </script>
 
 </body>
