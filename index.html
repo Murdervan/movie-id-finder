@@ -6,8 +6,9 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    background-color: #121212; /* Dark background */
-    color: #ffffff; /* White text */
+    background: url('https://pasteboard.co/npqf3lcVwzOV.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,8 +18,19 @@
   }
 
   h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     text-align: center;
     margin-bottom: 20px;
+    background-color: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+
+  h2 img {
+    width: 40px; /* lille logo */
+    height: 40px;
   }
 
   input {
@@ -43,7 +55,7 @@
     display: flex;
     gap: 20px;
     align-items: center;
-    background-color: #1e1e1e;
+    background-color: rgba(30,30,30,0.8);
     padding: 15px;
     border-radius: 10px;
   }
@@ -72,7 +84,10 @@
     margin-top: 40px;
     text-align: center;
     font-size: 14px;
-    color: #888888;
+    color: #ffffff;
+    background-color: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
   }
 
   footer a {
@@ -87,7 +102,11 @@
 </head>
 <body>
 
-<h2>Movie ID Finder</h2>
+<h2>
+  <img src="https://pasteboard.co/npqf3lcVwzOV.png" alt="Logo">
+  Movie ID Finder
+</h2>
+
 <input id="q" placeholder="Search for a movie">
 
 <div id="results"></div>
