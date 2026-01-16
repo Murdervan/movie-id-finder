@@ -6,8 +6,7 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: url('https://pasteboard.co/npqf3lcVwzOV.png') no-repeat center center fixed;
-    background-size: cover;
+    background-color: #121212;
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -18,19 +17,8 @@
   }
 
   h2 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     text-align: center;
     margin-bottom: 20px;
-    background-color: rgba(0,0,0,0.5);
-    padding: 10px 20px;
-    border-radius: 10px;
-  }
-
-  h2 img {
-    width: 40px; /* lille logo */
-    height: 40px;
   }
 
   input {
@@ -55,7 +43,7 @@
     display: flex;
     gap: 20px;
     align-items: center;
-    background-color: rgba(30,30,30,0.8);
+    background-color: #1e1e1e;
     padding: 15px;
     border-radius: 10px;
   }
@@ -84,10 +72,7 @@
     margin-top: 40px;
     text-align: center;
     font-size: 14px;
-    color: #ffffff;
-    background-color: rgba(0,0,0,0.5);
-    padding: 10px 20px;
-    border-radius: 10px;
+    color: #888888;
   }
 
   footer a {
@@ -102,18 +87,14 @@
 </head>
 <body>
 
-<h2>
-  <img src="https://pasteboard.co/npqf3lcVwzOV.png" alt="Logo">
-  Movie ID Finder
-</h2>
-
+<h2>Movie ID Finder</h2>
 <input id="q" placeholder="Search for a movie">
 
 <div id="results"></div>
 
 <footer>
   <div>Visit my GitHub: <a href="https://github.com/murdervan" target="_blank">github.com/murdervan</a></div>
-  <div>Visit count: <span id="counter">0</span></div>
+  <div>Global visit count: <span id="counter">0</span></div>
 </footer>
 
 <script>
@@ -123,11 +104,16 @@ const q = document.getElementById("q");
 const results = document.getElementById("results");
 const counter = document.getElementById("counter");
 
-// Local visit counter
-let visits = localStorage.getItem("visits") || 0;
-visits++;
-localStorage.setItem("visits", visits);
-counter.textContent = visits;
+// Global visit counter using CountAPI
+// Replace 'your-namespace' and 'your-key' with your own (or keep these for demo)
+fetch("https://api.countapi.xyz/hit/murdervan/movieidfinder")
+  .then(res => res.json())
+  .then(data => {
+    counter.textContent = data.value;
+  })
+  .catch(err => {
+    console.error("CountAPI error:", err);
+  });
 
 q.oninput = async () => {
   results.innerHTML = "";
@@ -163,4 +149,3 @@ q.oninput = async () => {
 
 </body>
 </html>
-
