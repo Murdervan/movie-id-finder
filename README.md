@@ -1,5 +1,4 @@
-<p align="center">
-<strong>
+<p align="center"><strong>
 Find your ID NUMBER to a movie request on IMDB & TMDB
 </strong>
 
