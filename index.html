@@ -295,10 +295,10 @@ q.addEventListener("input", async () => {
             <a href="${tmdbLink}" target="_blank">TMDB ID: ${d.id}</a>
             <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
           </div>
-          ${d.imdb_id ? `<div class="id-box imdb">
-  <a href="${imdbLink}" target="_blank">IMDb ID: ${imdbClean}</a>
-  <button class="copy-btn" onclick="copyToClipboard('${imdbClean}', this)">Copy</button>
-</div>` : ''}
+          ${d.imdb_id ? <div class="id-box imdb">
+            <a href="${imdbLink}" target="_blank">IMDb ID: ${d.imdb_id}
+          </a> <button class="copy-btn" onclick="copyToClipboard('${d.imdb_id}', this)">Copy</button>
+          </div> : ''}
         </div>
       </div>
     `;
