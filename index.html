@@ -94,7 +94,7 @@
 
 <footer>
   <div>Visit my GitHub: <a href="https://github.com/murdervan" target="_blank">github.com/murdervan</a></div>
-  <div>Global visit count: <span id="counter">0</span></div>
+  <div>Your visit count: <span id="counter">0</span></div>
 </footer>
 
 <script>
@@ -104,16 +104,11 @@ const q = document.getElementById("q");
 const results = document.getElementById("results");
 const counter = document.getElementById("counter");
 
-// Global visit counter using CountAPI
-// Replace 'your-namespace' and 'your-key' with your own (or keep these for demo)
-fetch("https://api.countapi.xyz/hit/murdervan/movieidfinder")
-  .then(res => res.json())
-  .then(data => {
-    counter.textContent = data.value;
-  })
-  .catch(err => {
-    console.error("CountAPI error:", err);
-  });
+// ✅ LocalStorage visit counter
+let visits = localStorage.getItem("visits") || 0;
+visits++;
+localStorage.setItem("visits", visits);
+counter.textContent = visits;
 
 q.oninput = async () => {
   results.innerHTML = "";
@@ -149,3 +144,4 @@ q.oninput = async () => {
 
 </body>
 </html>
+
