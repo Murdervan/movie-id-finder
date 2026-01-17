@@ -4,11 +4,12 @@
 <meta charset="UTF-8">
 <title>Movie ID Finder</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
 :root {
   --bg-color: #121212;
   --text-color: #ffffff;
-  --card-bg: rgba(30,30,30,0.85); /* lidt transparent så baggrund ses */
+  --card-bg: rgba(30,30,30,0.85);
   --tmdb-color: #1da1f2;
   --imdb-color: #f1c40f;
   --badge-bg: rgba(42,42,42,0.8);
@@ -18,8 +19,6 @@ body.light {
   --bg-color: #f5f5f5;
   --text-color: #121212;
   --card-bg: rgba(255,255,255,0.85);
-  --tmdb-color: #1da1f2;
-  --imdb-color: #f1c40f;
   --badge-bg: rgba(224,224,224,0.8);
 }
 
@@ -30,37 +29,28 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
-  transition: background-color 0.3s, color 0.3s;
 
-
-  /* Baggrundsbillede */
   background-image: url("https://github.com/Murdervan/movie-id-finder/blob/main/image/movie-ID-finder-logo.png?raw=true");
-  background-size: auto;
-  background-position: center;
   background-repeat: no-repeat;
+  background-position: center;
   background-attachment: fixed;
 }
 
-/* Overlay for at gøre teksten læsbar */
+/* Overlay */
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.6);
+  inset: 0;
+  background: rgba(0,0,0,0.6);
   z-index: -1;
 }
 
 header {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
   padding: 10px 20px;
   background-color: var(--card-bg);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -71,184 +61,120 @@ header {
   padding: 6px 12px;
   border-radius: 6px;
   border: none;
-  font-weight: bold;
   background-color: var(--tmdb-color);
   color: #fff;
-  transition: background-color 0.3s;
 }
-
-#toggle-mode:hover { background-color: #0d8ddb; }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 20px 30px 20px;
-  flex: 1; /* gør footer sticky */
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Overskrift */
-.title-container {
-  text-align: center;
-  margin-bottom: 30px;
+  padding: 60px 20px 30px;
 }
 
 .title-container h1 {
   font-size: 60px;
-  font-weight: bold;
-  margin: 0;
-  /* Gradient farver inspireret af logo */
   background: linear-gradient(90deg, #1da1f2, #f1c40f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+  margin-bottom: 30px;
 }
 
 input {
-  width: 100%;
   max-width: 500px;
-  padding: 12px 15px;
-  font-size: 16px;
+  width: 100%;
+  padding: 12px;
   border-radius: 8px;
   border: none;
   margin-bottom: 20px;
-  background-color: var(--card-bg);
+  background: var(--card-bg);
   color: var(--text-color);
 }
 
-input:focus { outline: 2px solid var(--tmdb-color); }
-
 #results {
-  width: 100%;
   max-width: 800px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 .movie {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  background-color: var(--card-bg);
+  background: var(--card-bg);
   padding: 15px;
   border-radius: 12px;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.movie:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  display: flex;
+  gap: 20px;
 }
 
 .movie img {
   width: 100px;
   border-radius: 8px;
-  flex-shrink: 0;
 }
 
-.movie-info {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex-grow: 1;
+.movie-info b {
+  color: var(--tmdb-color);
+  font-size: 20px;
 }
-
-.movie-info b { font-size: 20px; color: var(--tmdb-color); }
-.movie-info p { font-size: 14px; color: #ccc; margin: 4px 0; }
-
-.badges { display: flex; gap: 6px; flex-wrap: wrap; }
-.badge { background-color: var(--badge-bg); padding: 2px 6px; border-radius: 6px; font-size: 12px; color: var(--text-color); }
 
 .id-box {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background-color: var(--badge-bg);
+  background: var(--badge-bg);
   padding: 8px 12px;
   border-radius: 8px;
-  font-size: 14px;
-  gap: 10px;
-  border: 2px solid transparent;
+  margin-top: 6px;
 }
 
-.id-box a { color: var(--text-color); text-decoration: none; font-weight: bold; }
-.tmdb { border-color: var(--tmdb-color); }
-.imdb { border-color: var(--imdb-color); }
+.tmdb { border: 2px solid var(--tmdb-color); }
+.imdb { border: 2px solid var(--imdb-color); }
 
 .copy-btn {
-  background-color: var(--tmdb-color);
+  background: var(--tmdb-color);
   border: none;
-  border-radius: 4px;
   color: #fff;
   padding: 2px 6px;
-  font-size: 12px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
-
-.copy-btn:hover { background-color: #0d8ddb; }
-.copy-btn.copied { background-color: #2ecc71 !important; }
 
 footer {
   display: flex;
-  align-items: center;        /* lodret centrering */
-  justify-content: center;    /* centrerer horisontalt */
-  gap: 10px;                  /* afstand mellem tekst og link */
-  width: 100%;
-  background-color: var(--card-bg);
-  padding: 15px 0;
-  border-top: 2px solid #333;
-}
-
-footer p {
-  margin: 0;
-  color: var(--text-color);   /* lys farve for teksten */
-  font-size: 14px;
-  text-align: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  background: var(--card-bg);
 }
 
 footer a {
-  margin: 0;
-  color: var(--tmdb-color);   /* blå farve på linket */
-  font-size: 14px;
+  color: var(--tmdb-color);
   text-decoration: none;
-  font-weight: bold;          /* gør linket lidt tydeligere */
+  font-weight: bold;
 }
 
-footer a:hover {
-  text-decoration: underline; 
-  color: #0d8ddb;             /* mørkere blå ved hover */
-}
-
-goTop {
+/* 🔼 GO TO TOP BUTTON */
+#goTop {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
+  bottom: 15px;
+  right: 15px;
   width: 45px;
   height: 45px;
   border-radius: 50%;
   border: none;
   background-color: var(--tmdb-color);
-  color: #fff;
+  color: white;
   font-size: 18px;
   cursor: pointer;
-  display: none; /* skjult som standard */
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  display: none;
   z-index: 999;
-  transition: opacity 0.3s, transform 0.3s;
 }
 
 #goTop:hover {
   background-color: #0d8ddb;
-  transform: translateY(-3px);
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -263,95 +189,61 @@ goTop {
   <input id="q" placeholder="Search for a movie">
   <div id="results"></div>
 </main>
-  
+
+<!-- 🔼 GO TO TOP -->
 <button id="goTop" title="Go to top">
   <i class="fas fa-arrow-up"></i>
 </button>
-  
+
 <footer>
   <p>&copy; 2026 Movie ID Finder.</p>
-  <a href="https://github.com/murdervan" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+  <a href="https://github.com/murdervan" target="_blank">
+    <i class="fab fa-github"></i> GitHub
+  </a>
 </footer>
-
-
-
-
 
 <script>
 const API_KEY = "b7a512be09653a21e9b9cc99a026ae46";
 const q = document.getElementById("q");
 const results = document.getElementById("results");
-const toggleBtn = document.getElementById("toggle-mode");
 
-// Dark/light mode
+// Dark / light
 if(localStorage.getItem("mode") === "light") document.body.classList.add("light");
-toggleBtn.addEventListener("click", () => {
+document.getElementById("toggle-mode").onclick = () => {
   document.body.classList.toggle("light");
   localStorage.setItem("mode", document.body.classList.contains("light") ? "light" : "dark");
+};
+
+// Go to top
+const goTop = document.getElementById("goTop");
+window.addEventListener("scroll", () => {
+  goTop.style.display = window.scrollY > 100 ? "block" : "none";
 });
+goTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-// Copy ID
-function copyToClipboard(id, button) {
-  navigator.clipboard.writeText(id);
-  button.textContent = "Copied!";
-  button.classList.add("copied");
-  setTimeout(() => { button.textContent = "Copy"; button.classList.remove("copied"); }, 1500);
-}
-
-// Search movies
+// Search
 q.addEventListener("input", async () => {
   results.innerHTML = "";
   if(q.value.length < 2) return;
 
-  const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(q.value)}`);
+  const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${q.value}`);
   const data = await res.json();
 
   for(const m of data.results){
     const d = await fetch(`https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}`).then(r => r.json());
-    const poster = d.poster_path ? `https://image.tmdb.org/t/p/w200${d.poster_path}` : "https://via.placeholder.com/100x150?text=No+Image";
-    const tmdbLink = `https://www.themoviedb.org/movie/${d.id}`;
-    const imdbLink = d.imdb_id ? `https://www.imdb.com/title/${d.imdb_id}/` : "#";
-    const genreBadges = d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
-
     results.innerHTML += `
       <div class="movie">
-        <img src="${poster}" alt="${d.title}" loading="lazy">
+        <img src="https://image.tmdb.org/t/p/w200${d.poster_path}">
         <div class="movie-info">
-          <b>${d.title} (${d.release_date ? d.release_date.slice(0,4) : "N/A"})</b>
-          <div class="badges">${genreBadges}</div>
-          <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
-          <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
-          <div class="id-box tmdb">
-            <a href="${tmdbLink}" target="_blank">TMDB ID: ${d.id}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
-          </div>
-          ${d.imdb_id ? `<div class="id-box imdb">
-            <a href="${imdbLink}" target="_blank">IMDb ID: ${d.imdb_id}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${d.imdb_id}', this)">Copy</button>
-          </div>` : ''}
+          <b>${d.title}</b>
+          <div class="id-box tmdb">TMDB: ${d.id}</div>
+          ${d.imdb_id ? `<div class="id-box imdb">IMDb: ${d.imdb_id.replace("tt","")}</div>` : ""}
         </div>
-      </div>
-    `;
+      </div>`;
   }
 });
 </script>
-  const goTopBtn = document.getElementById("goTop");
 
-// Vis knappen når man scroller ned
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 300) {
-    goTopBtn.style.display = "flex";
-  } else {
-    goTopBtn.style.display = "none";
-  }
-});
-
-// Scroll til toppen
-goTopBtn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-});
 </body>
 </html>
+
