@@ -27,8 +27,11 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   overflow-x: hidden;
-  transition: background-color 0.3s, color 0.3s;
 
   background-image: url("https://github.com/Murdervan/movie-id-finder/blob/main/image/movie-ID-finder-logo.png?raw=true");
   background-repeat: no-repeat;
@@ -36,70 +39,86 @@ body {
   background-attachment: fixed;
 }
 
+/* Overlay */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background-color: rgba(0,0,0,0.6);
   z-index: -1;
 }
 
 header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  background-color: var(--card-bg);
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--card-bg);
-  padding: 10px 20px;
-  display: flex;
-  justify-content: flex-end;
 }
 
 #toggle-mode {
-  background: var(--tmdb-color);
-  border: none;
-  color: white;
+  cursor: pointer;
   padding: 6px 12px;
   border-radius: 6px;
-  cursor: pointer;
+  border: none;
   font-weight: bold;
+  background-color: var(--tmdb-color);
+  color: #fff;
 }
 
 main {
-  max-width: 900px;
-  margin: auto;
-  padding: 40px 20px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px 30px;
 }
 
 .title-container h1 {
-  text-align: center;
   font-size: 60px;
-  background: linear-gradient(90deg,#1da1f2,#f1c40f);
+  margin: 0 0 30px;
+  background: linear-gradient(90deg, #1da1f2, #f1c40f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 input {
   width: 100%;
+  max-width: 500px;
   padding: 12px;
-  margin-bottom: 20px;
   border-radius: 8px;
   border: none;
-  background: var(--card-bg);
+  margin-bottom: 20px;
+  background-color: var(--card-bg);
   color: var(--text-color);
 }
 
+#results {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .movie {
-  background: var(--card-bg);
-  padding: 15px;
-  border-radius: 12px;
   display: flex;
   gap: 20px;
-  margin-bottom: 20px;
+  background-color: var(--card-bg);
+  padding: 15px;
+  border-radius: 12px;
 }
 
 .movie img {
   width: 100px;
   border-radius: 8px;
+}
+
+.movie-info b {
+  font-size: 20px;
+  color: var(--tmdb-color);
 }
 
 .badges {
@@ -109,61 +128,76 @@ input {
 }
 
 .badge {
-  background: var(--badge-bg);
+  background-color: var(--badge-bg);
   padding: 2px 6px;
   border-radius: 6px;
   font-size: 12px;
 }
 
 .id-box {
-  margin-top: 8px;
-  padding: 8px;
-  border-radius: 8px;
-  background: var(--badge-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--badge-bg);
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-top: 6px;
 }
 
-.tmdb { border-left: 4px solid var(--tmdb-color); }
-.imdb { border-left: 4px solid var(--imdb-color); }
+.tmdb { border: 2px solid var(--tmdb-color); }
+.imdb { border: 2px solid var(--imdb-color); }
 
 .copy-btn {
-  background: var(--tmdb-color);
+  background-color: var(--tmdb-color);
   border: none;
-  color: white;
-  padding: 4px 8px;
   border-radius: 4px;
+  color: #fff;
   cursor: pointer;
+  padding: 2px 6px;
 }
 
+/* FOOTER – FAST KORREKT */
 footer {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--card-bg);
   padding: 15px 0;
-  background: var(--card-bg);
   border-top: 2px solid #333;
-  margin-top: 30px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+footer a {
+  color: var(--tmdb-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 /* GO TO TOP BUTTON */
-#goTop {
+#goTopBtn {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 45px;
-  height: 45px;
+  right: 20px;
+  bottom: 90px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: var(--tmdb-color);
-  color: white;
   border: none;
-  font-size: 20px;
-  cursor: pointer;
+  background-color: var(--tmdb-color);
+  color: #fff;
   display: none;
-  z-index: 200;
-}
-
-#goTop:hover {
-  background: #0d8ddb;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 999;
 }
 </style>
 </head>
@@ -184,68 +218,57 @@ footer {
 </main>
 
 <footer>
-  <p>&copy; 2026 Movie ID Finder ·
-    <a href="https://github.com/murdervan" target="_blank">GitHub</a>
-  </p>
+  <p>&copy; 2026 Movie ID Finder.</p>
+  <a href="https://github.com/murdervan" target="_blank">
+    <i class="fab fa-github"></i> GitHub
+  </a>
 </footer>
 
-<button id="goTop" title="Go to top">↑</button>
+<button id="goTopBtn"><i class="fas fa-arrow-up"></i></button>
 
 <script>
 const API_KEY = "b7a512be09653a21e9b9cc99a026ae46";
 const q = document.getElementById("q");
 const results = document.getElementById("results");
-const toggleBtn = document.getElementById("toggle-mode");
-const goTop = document.getElementById("goTop");
 
-// dark / light
-if(localStorage.getItem("mode")==="light") document.body.classList.add("light");
-toggleBtn.onclick=()=>{
+document.getElementById("toggle-mode").onclick = () => {
   document.body.classList.toggle("light");
-  localStorage.setItem("mode",document.body.classList.contains("light")?"light":"dark");
 };
 
-// go to top
-window.addEventListener("scroll",()=>{
-  goTop.style.display = window.scrollY > 200 ? "block" : "none";
+// GO TO TOP
+const goTopBtn = document.getElementById("goTopBtn");
+window.addEventListener("scroll", () => {
+  goTopBtn.style.display = window.scrollY > 200 ? "flex" : "none";
 });
-goTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+goTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-// copy
-function copyToClipboard(id,btn){
-  navigator.clipboard.writeText(id);
-  btn.textContent="Copied!";
-  setTimeout(()=>btn.textContent="Copy",1200);
-}
+// SEARCH
+q.addEventListener("input", async () => {
+  results.innerHTML = "";
+  if (q.value.length < 2) return;
 
-// search
-q.addEventListener("input",async()=>{
-  results.innerHTML="";
-  if(q.value.length<2) return;
-
-  const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${q.value}`);
+  const res = await fetch(
+    `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(q.value)}`
+  );
   const data = await res.json();
 
-  for(const m of data.results){
-    const d = await fetch(`https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}`).then(r=>r.json());
+  for (const m of data.results) {
+    const d = await fetch(
+      `https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}`
+    ).then(r => r.json());
+
     results.innerHTML += `
-    <div class="movie">
-      <img src="https://image.tmdb.org/t/p/w200${d.poster_path}">
-      <div>
-        <b>${d.title}</b>
-        <div class="badges">${(d.genres||[]).map(g=>`<span class="badge">${g.name}</span>`).join("")}</div>
-        <div class="id-box tmdb">TMDB: ${d.id}
-          <button class="copy-btn" onclick="copyToClipboard('${d.id}',this)">Copy</button>
+      <div class="movie">
+        <img src="https://image.tmdb.org/t/p/w200${d.poster_path}">
+        <div class="movie-info">
+          <b>${d.title}</b>
+          <div class="id-box tmdb">TMDB ID: ${d.id}</div>
+          ${d.imdb_id ? `<div class="id-box imdb">IMDb ID: ${d.imdb_id}</div>` : ""}
         </div>
-        ${d.imdb_id?`
-        <div class="id-box imdb">IMDb: ${d.imdb_id.replace("tt","")}
-          <button class="copy-btn" onclick="copyToClipboard('${d.imdb_id.replace("tt","")}',this)">Copy</button>
-        </div>`:""}
-      </div>
-    </div>`;
+      </div>`;
   }
 });
 </script>
+
 </body>
 </html>
-
