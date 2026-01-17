@@ -172,7 +172,7 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
 </main>
 
 <footer>
-  <p>&copy; 2026 Movie ID Finder.</p>
+  <p>&copy; 2026 Movie ID Finder. The EASY way to make a request!</p>
   <a href="https://github.com/murdervan" target="_blank"><i class="fab fa-github"></i> GitHub</a>
 </footer>
 
@@ -242,7 +242,7 @@ q.addEventListener("input", async () => {
           <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
           <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
           <div class="id-box tmdb">
-            <a href="${tmdbLink}" target="_blank">TMDB ID: ${d.id}</a>
+            <a href="${tmdbLink}" target="_blank">TMDb ID: ${d.id}</a>
             <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
           </div>
           ${imdbIdNum ? `<div class="id-box imdb">
