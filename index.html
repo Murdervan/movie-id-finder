@@ -70,18 +70,6 @@ header {
   z-index: 100;
 }
 
-#toggle-mode {
-  cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  font-weight: bold;
-  background-color: var(--tmdb-color);
-  color: #fff;
-  transition: background-color 0.3s;
-}
-#toggle-mode:hover { background-color: #0d8ddb; }
-
 main {
   display: flex;
   flex-direction: column;
@@ -104,7 +92,7 @@ main {
 .subtitle {
   font-size: 18px;
   color: #ccc;
-  margin-top: 10px;
+  margin-top: 5px;
 }
   
 input {
@@ -175,7 +163,7 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
 <main>
   <div class="title-container">
     <h1>Movie ID Finder</h1>
-    <p class="subtitle">Quickly find movies on <span style="color:#1da1f2;">TMDb</span> and<span style="color:#f1c40f;">IMDb</span> at the same time!</p>
+    <p class="subtitle">Quickly find movies on <span style="color:#1da1f2;">TMDb</span> and <span style="color:#f1c40f;">IMDb</span> at the same time!</p>
   </div>
 
   <input id="q" placeholder="Search for a movie">
