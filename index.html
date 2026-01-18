@@ -37,7 +37,7 @@ body {
 
   background-image: url("https://raw.githubusercontent.com/Murdervan/movie-id-finder/main/image/movie-ID-finder-logo.png");
   background-size: cover;
-  background-position: center top;
+  background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -49,6 +49,12 @@ body::before {
   width: 100%; height: 100%;
   background-color: rgba(0,0,0,0.6);
   z-index: -1;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-size: contain; 
+    background-position: center top;  
 }
 
 header {
