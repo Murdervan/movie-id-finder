@@ -128,6 +128,25 @@ input:focus { outline: 2px solid var(--tmdb-color); }
 .id-box a { color: var(--text-color); text-decoration: none; font-weight: bold; }
 .tmdb { border-color: var(--tmdb-color); }
 .imdb { border-color: var(--imdb-color); }
+.tvdb {
+  border-color: #4caf50;
+}
+
+.open-btn {
+  background-color: #4caf50;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.open-btn:hover {
+  background-color: #3e8e41;
+}
 
 .copy-btn { background-color: var(--tmdb-color); border: none; border-radius: 4px; color: #fff; padding: 2px 6px; font-size: 12px; cursor: pointer; transition: background-color 0.2s; }
 .copy-btn:hover { background-color: #0d8ddb; }
@@ -163,7 +182,12 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
 <main>
   <div class="title-container">
     <h1>Movie ID Finder</h1>
-    <p class="subtitle">Quickly find movies on <span style="color:#1da1f2;">TMDb</span> and <span style="color:#f1c40f;">IMDb</span> at the same time!</p>
+    <p class="subtitle">
+  Quickly find movies & series on
+  <span style="color:#1da1f2;">TMDb</span>,
+  <span style="color:#f1c40f;">IMDb</span>
+  & <span style="color:#4caf50;">TheTVDB</span>
+</p>
   </div>
 
   <input id="q" placeholder="Search for a movie">
@@ -276,13 +300,17 @@ q.addEventListener("input", async () => {
           }
 
           ${
-            item.media_type === "tv"
-              ? `<div class="id-box tvdb">
-                  <a href="${tvdbSeries}" target="_blank">TheTVDB Series Page</a>
-                  <a href="${tvdbSearch}" target="_blank">Search</a>
-                </div>`
-              : ""
-          }
+  item.media_type === "tv"
+    ? `<div class="id-box tvdb">
+        <span><b>TheTVDB ID Page</b></span>
+        <a class="open-btn" href="${tvdbSeries}" target="_blank">OPEN</a>
+      </div>
+      <div class="id-box tvdb">
+        <span>TheTVDB Search</span>
+        <a class="open-btn" href="${tvdbSearch}" target="_blank">OPEN</a>
+      </div>`
+    : ""
+}
         </div>
       </div>
     `;
