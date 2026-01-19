@@ -129,6 +129,26 @@ main {
   color: white;
   text-shadow: 5px 5px 10px black;
 }
+
+.install-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #1da1f2, #f1c40f);
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.install-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
   
 input {
   width: 100%; max-width: 500px;
@@ -225,6 +245,18 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
   </p>
   </div>
 
+<a
+  href="https://github.com/Murdervan/nordicq-movie-id-autofill/releases/latest/download/nordicq-autofill.user.js"
+  class="install-btn"
+  target="_blank"
+>
+🚀 Install NordicQ Auto-Fill
+</a>
+
+<div id="tm-note" style="display:none; margin-top:4px; font-size:14px; color:#ccc; text-align:center;">
+  ⚠️ Requires <a href="https://www.tampermonkey.net/" target="_blank">Tampermonkey</a>
+</div>
+  
   <input id="q" placeholder="Search for a movie or TV series">
   <div id="results"></div>
 </main>
