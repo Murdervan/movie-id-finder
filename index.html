@@ -96,6 +96,7 @@ main {
 }
 
 .poster-wrap {
+  width: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -104,7 +105,7 @@ main {
 
 .poster-emoji {
   font-size: 22px;
-  margin-top: 4px;
+  margin-top: 6px;
   line-height: 1;
 }
 
@@ -113,6 +114,7 @@ main {
   opacity: 0.75;
   margin-top: 2px;
   line-height: 1;
+  white-space: nowrap;
 }
   
 input {
@@ -299,49 +301,50 @@ q.addEventListener("input", async () => {
     results.innerHTML += `
   <div class="movie">
 
-    <div class="poster-wrap">
-  <img src="${poster}" alt="${title}" loading="lazy">
+  <div class="poster-wrap">
+    <img src="${poster}" alt="${title}" loading="lazy">
 
-  <div class="poster-emoji">
-    ${item.media_type === "tv" ? "📺" : "🎬"}
+    <div class="poster-emoji">
+      ${item.media_type === "tv" ? "📺" : "🎬"}
+    </div>
+
+    <div class="poster-type">
+      ${item.media_type === "tv" ? "TV Series" : "Movie"}
+    </div>
   </div>
 
-  <div class="poster-type">
-    ${item.media_type === "tv" ? "TV Series" : "Movie"}
+  <div class="movie-info">
+    <b>${title} (${year})</b>
+    <div class="badges">${genreBadges}</div>
+    <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
+    <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
+
+    <div class="id-box tmdb">
+      <a href="${tmdbLink}" target="_blank">TMDb ID: ${d.id}</a>
+      <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
+    </div>
+
+    ${
+      imdbIdNum
+        ? `<div class="id-box imdb">
+            <a href="${imdbLink}" target="_blank">IMDb ID: ${imdbIdNum}</a>
+            <button class="copy-btn" onclick="copyToClipboard('${imdbIdNum}', this)">Copy</button>
+          </div>`
+        : ""
+    }
+
+    ${
+      item.media_type === "tv"
+        ? `<div class="id-box tvdb">
+            <span>TheTVDB ID Page</span>
+            <a class="open-btn" href="${tvdbSearch}" target="_blank">OPEN</a>
+          </div>`
+        : ""
+    }
   </div>
-</div
 
+</div>
 
-        <div class="movie-info">
-          <b>${title} (${year})</b>
-          <div class="badges">${genreBadges}</div>
-          <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
-          <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
-
-          <div class="id-box tmdb">
-            <a href="${tmdbLink}" target="_blank">TMDb ID: ${d.id}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
-          </div>
-
-          ${
-            imdbIdNum
-              ? `<div class="id-box imdb">
-                  <a href="${imdbLink}" target="_blank">IMDb ID: ${imdbIdNum}</a>
-                  <button class="copy-btn" onclick="copyToClipboard('${imdbIdNum}', this)">Copy</button>
-                </div>`
-              : ""
-          }
-
-          ${
-  item.media_type === "tv"
-    ? `<div class="id-box tvdb">
-        <span>TVDb ID Page</span>
-        <a class="open-btn" href="${tvdbSearch}" target="_blank">OPEN</a>
-      </div>`
-    : ""
-}
-        </div>
-      </div>
     `;
   }
 });
