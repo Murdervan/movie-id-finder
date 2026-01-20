@@ -185,14 +185,20 @@ main {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  line-height: 1.2;
+  line-height: 1.15;
+}
+
+.autofill-main {
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .autofill-mini {
   font-size: 9px;
   opacity: 0.6;
   margin-top: 2px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
+  pointer-events: none;
 }
   
 input {
@@ -295,7 +301,7 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
   class="install-btn subtle autofill-btn"
   target="_blank"
 >
-  🎬 Install Auto-Fill
+  <span class="autofill-main">🎬 Install Auto-Fill</span>
   <span class="autofill-mini">for nordicq.org</span>
 </a>
 
