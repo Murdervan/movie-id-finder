@@ -359,7 +359,7 @@ function topFunction() {
 
 // Search movies + TV
 q.addEventListener("input", async () => {
-  results.innerHTML = "";
+  const currentSearch = ++searchId;
 
   let queryText = q.value.trim().replace(/\s+/g, ' ');
   if (queryText.length < 2) return;
@@ -370,6 +370,8 @@ q.addEventListener("input", async () => {
     fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`).then(r => r.json()),
     fetch(`https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${query}`).then(r => r.json())
   ]);
+
+  if (currentSearch !== searchId) return;
 
   const combined = [
     ...movieRes.results.map(r => ({ ...r, media_type: "movie" })),
@@ -384,6 +386,7 @@ q.addEventListener("input", async () => {
         : `https://api.themoviedb.org/3/tv/${item.id}?api_key=${API_KEY}`;
 
     const d = await fetch(detailUrl).then(r => r.json());
+    if (currentSearch !== searchId) return;
 
     const title = d.title || d.name;
     const year = (d.release_date || d.first_air_date || "").slice(0, 4) || "N/A";
