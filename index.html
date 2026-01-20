@@ -285,7 +285,6 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
 </head>
 <body>
 
-
 <main>
   <div class="title-container">
     <h1>Movie ID Finder</h1>
@@ -310,10 +309,10 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
     ⚠️ Requires <a href="https://www.tampermonkey.net/" target="_blank" class="tm-link">Tampermonkey</a>
   </div>
 
-  <!-- SEARCH + FILTERS -->
-  <div id="search-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:20px 0;">
-    <input id="q" placeholder="Search for a movie or TV series" style="flex:1; min-width:200px; padding:12px 15px; border-radius:8px; border:none;">
-
+  <!-- Search + filters -->
+  <div id="search-container" style="display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px; margin:20px 0;">
+    <input id="q" placeholder="Search for a movie or TV series" style="flex:1; min-width:220px; padding:12px 15px; border-radius:8px; border:none;">
+    
     <label style="display:flex; align-items:center; font-size:14px; color:#fff;">
       <input type="checkbox" id="chkMovie" checked style="margin-right:4px;">
       Movie
@@ -325,6 +324,7 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
     </label>
   </div>
 
+  <!-- Results -->
   <div id="results"></div>
 </main>
   
