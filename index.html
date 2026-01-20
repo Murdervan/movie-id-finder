@@ -338,6 +338,10 @@ const q = document.getElementById("q");
 const results = document.getElementById("results");
 const topBtn = document.getElementById("topBtn");
 
+// NEW: checkboxes
+const chkMovie = document.getElementById("chkMovie");
+const chkTV = document.getElementById("chkTV");
+
 // Copy ID
 function copyToClipboard(id, button) {
   navigator.clipboard.writeText(id);
@@ -358,25 +362,51 @@ function topFunction() {
   document.documentElement.scrollTop = 0;
 }
 
-// Search movies + TV
+// Search movies + TV with filters
 q.addEventListener("input", async () => {
   results.innerHTML = "";
 
-  let queryText = q.value.trim().replace(/\s+/g, ' ');
+  let queryText = q.value.trim().replace(/\s+/g, " ");
   if (queryText.length < 2) return;
 
   const query = encodeURIComponent(queryText);
 
-  const [movieRes, tvRes] = await Promise.all([
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`).then(r => r.json()),
-    fetch(`https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${query}`).then(r => r.json())
-  ]);
+  // Read filters
+  let searchMovie = chkMovie.checked;
+  let searchTV = chkTV.checked;
 
-  const combined = [
-    ...movieRes.results.map(r => ({ ...r, media_type: "movie" })),
-    ...tvRes.results.map(r => ({ ...r, media_type: "tv" }))
-  ];
+  // Fallback: if both OFF → search both
+  if (!searchMovie && !searchTV) {
+    searchMovie = true;
+    searchTV = true;
+  }
 
+  const requests = [];
+  if (searchMovie) {
+    requests.push(
+      fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`)
+        .then(r => r.json())
+    );
+  }
+  if (searchTV) {
+    requests.push(
+      fetch(`https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${query}`)
+        .then(r => r.json())
+    );
+  }
+
+  const responses = await Promise.all(requests);
+
+  let combined = [];
+  for (const res of responses) {
+    if (!res || !res.results) continue;
+    combined.push(
+      ...res.results.map(r => ({
+        ...r,
+        media_type: r.title ? "movie" : "tv"
+      }))
+    );
+  }
 
   for (const item of combined) {
     const detailUrl =
@@ -403,60 +433,48 @@ q.addEventListener("input", async () => {
       : "#";
 
     const tvdbSearch = `https://www.thetvdb.com/search?query=${encodeURIComponent(title)}`;
-    const tvdbSeries = `https://www.thetvdb.com/series/${encodeURIComponent(
-      title.toLowerCase().replace(/[^a-z0-9]+/g, "-")
-    )}`;
 
     const genreBadges =
       d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
 
     results.innerHTML += `
-  <div class="movie">
+      <div class="movie">
+        <div class="poster-wrap">
+          <img src="${poster}" alt="${title}" loading="lazy">
+          <div class="poster-emoji">${item.media_type === "tv" ? "📺" : "🎬"}</div>
+          <div class="poster-type">${item.media_type === "tv" ? "TV Series" : "Movie"}</div>
+        </div>
 
-  <div class="poster-wrap">
-    <img src="${poster}" alt="${title}" loading="lazy">
+        <div class="movie-info">
+          <b>${title} (${year})</b>
+          <div class="badges">${genreBadges}</div>
+          <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
+          <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
 
-    <div class="poster-emoji">
-      ${item.media_type === "tv" ? "📺" : "🎬"}
-    </div>
+          <div class="id-box tmdb">
+            <a href="${tmdbLink}" target="_blank">TMDb ID: ${d.id}</a>
+            <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
+          </div>
 
-    <div class="poster-type">
-      ${item.media_type === "tv" ? "TV Series" : "Movie"}
-    </div>
-  </div>
+          ${
+            imdbIdNum
+              ? `<div class="id-box imdb">
+                  <a href="${imdbLink}" target="_blank">IMDb ID: ${imdbIdNum}</a>
+                  <button class="copy-btn" onclick="copyToClipboard('${imdbIdNum}', this)">Copy</button>
+                </div>`
+              : ""
+          }
 
-  <div class="movie-info">
-    <b>${title} (${year})</b>
-    <div class="badges">${genreBadges}</div>
-    <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
-    <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
-
-    <div class="id-box tmdb">
-      <a href="${tmdbLink}" target="_blank">TMDb ID: ${d.id}</a>
-      <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
-    </div>
-
-    ${
-      imdbIdNum
-        ? `<div class="id-box imdb">
-            <a href="${imdbLink}" target="_blank">IMDb ID: ${imdbIdNum}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${imdbIdNum}', this)">Copy</button>
-          </div>`
-        : ""
-    }
-
-    ${
-      item.media_type === "tv"
-        ? `<div class="id-box tvdb">
-            <span>TheTVDb ID Page</span>
-            <a class="open-btn" href="${tvdbSearch}" target="_blank">OPEN</a>
-          </div>`
-        : ""
-    }
-  </div>
-
-</div>
-
+          ${
+            item.media_type === "tv"
+              ? `<div class="id-box tvdb">
+                  <span>TheTVDb ID Page</span>
+                  <a class="open-btn" href="${tvdbSearch}" target="_blank">OPEN</a>
+                </div>`
+              : ""
+          }
+        </div>
+      </div>
     `;
   }
 });
