@@ -290,39 +290,41 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
   <div class="title-container">
     <h1>Movie ID Finder</h1>
     <p class="subtitle">
-  Quickly find movies & series on
-  <span style="color:#1da1f2;">TMDb</span>,
-  <span style="color:#f1c40f;">IMDb</span>
-  & <span style="color:#4caf50;">TheTVDb</span>
-  </p>
+      Quickly find movies & series on
+      <span style="color:#1da1f2;">TMDb</span>,
+      <span style="color:#f1c40f;">IMDb</span>
+      & <span style="color:#4caf50;">TheTVDb</span>
+    </p>
   </div>
 
   <a
-  href="https://raw.githubusercontent.com/Murdervan/nordicq-movie-id-autofill/main/nordicq-autofill.user.js"
-  class="install-btn subtle autofill-btn"
-  target="_blank"
->
-  <span class="autofill-main">🎬 Install Auto-Fill</span>
-  <span class="autofill-mini">for nordicq.org</span>
-</a>
-
+    href="https://raw.githubusercontent.com/Murdervan/nordicq-movie-id-autofill/main/nordicq-autofill.user.js"
+    class="install-btn subtle autofill-btn"
+    target="_blank"
+  >
+    <span class="autofill-main">🎬 Install Auto-Fill</span>
+    <span class="autofill-mini">for nordicq.org</span>
+  </a>
 
   <div id="tm-note">
-  ⚠️ Requires <a href="https://www.tampermonkey.net/" target="_blank" class="tm-link">Tampermonkey</a>
-</div>
+    ⚠️ Requires <a href="https://www.tampermonkey.net/" target="_blank" class="tm-link">Tampermonkey</a>
   </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (!window.GM_info) {
-      const tmNote = document.getElementById('tm-note');
-      if (tmNote) tmNote.style.display = 'block';
-    }
-  });
-</script>
-  
-<div id="search-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:20px;">
-<input id="q" placeholder="Search for a movie or TV series">
+  <!-- SEARCH + FILTERS -->
+  <div id="search-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:20px 0;">
+    <input id="q" placeholder="Search for a movie or TV series" style="flex:1; min-width:200px; padding:12px 15px; border-radius:8px; border:none;">
+
+    <label style="display:flex; align-items:center; font-size:14px; color:#fff;">
+      <input type="checkbox" id="chkMovie" checked style="margin-right:4px;">
+      Movie
+    </label>
+
+    <label style="display:flex; align-items:center; font-size:14px; color:#fff;">
+      <input type="checkbox" id="chkTV" checked style="margin-right:4px;">
+      TV Series
+    </label>
+  </div>
+
   <div id="results"></div>
 </main>
   
