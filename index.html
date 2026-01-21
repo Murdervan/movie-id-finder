@@ -355,13 +355,13 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
 <button onclick="topFunction()" id="topBtn" title="Go to top">↑</button>
 
 <script>
+document.getElementById('github-star').style.display = 'block';
+
 const API_KEY = "b7a512be09653a21e9b9cc99a026ae46";
 const q = document.getElementById("q");
 const results = document.getElementById("results");
 const topBtn = document.getElementById("topBtn");
 let searchId = 0;
-
-document.getElementById('tm-note').style.display = 'block';
 
 // Copy ID
 function copyToClipboard(id, button) {
