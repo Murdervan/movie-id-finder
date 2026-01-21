@@ -182,18 +182,22 @@ main {
   gap: 6px;
 
   margin-top: 8px;
-  margin-left: 4px;
+  margin-left: 0;
 
   font-size: 13px;
   color: #fff;
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 999px; /* rund og diskret */
+  border-radius: 999px;
   padding: 6px 10px;
 
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   backdrop-filter: blur(6px);
+
+  width: fit-content;
+  max-width: 420px;
 }
+
   
 input {
   width: 100%; max-width: 500px;
@@ -291,8 +295,6 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
   </div>
 
   <input id="q" placeholder="Search for a movie or TV series">
-  <div id="results"></div>
-</main>
 
 <div id="tm-note" class="star-note">
   ⭐ Enjoying the site?
@@ -300,6 +302,9 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
     Give it a star on GitHub
   </a>
 </div>
+
+<div id="results"></div>
+</main>
 
 <script>
   document.getElementById('tm-note').style.display = 'block';
