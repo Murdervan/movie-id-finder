@@ -176,6 +176,25 @@ main {
   opacity: 0.85;
 }
 
+.star-like {
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 12px;
+
+  font-size: 13px;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  padding: 6px 10px;
+  text-align: center;
+  line-height: 1.3;
+  font-weight: 500;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  backdrop-filter: blur(6px);
+}
+  
 input {
   width: 100%; max-width: 500px;
   padding: 12px 15px; font-size: 16px;
@@ -271,19 +290,25 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
   </p>
   </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (!window.GM_info) {
-      const tmNote = document.getElementById('tm-note');
-      if (tmNote) tmNote.style.display = 'block';
-    }
-  });
-</script>
-
   <input id="q" placeholder="Search for a movie or TV series">
   <div id="results"></div>
 </main>
 
+<div id="tm-note" class="star-like">
+  ⭐ Enjoying the site?
+  <a
+    href="https://github.com/Murdervan/movie-id-finder"
+    target="_blank"
+    class="tm-link"
+  >
+    Give it a star on GitHub
+  </a>
+</div>
+
+<script>
+  document.getElementById('tm-note').style.display = 'block';
+</script>
+  
 <a
   href="https://github.com/Murdervan/movie-id-finder/issues"
   target="_blank"
@@ -330,6 +355,8 @@ const q = document.getElementById("q");
 const results = document.getElementById("results");
 const topBtn = document.getElementById("topBtn");
 let searchId = 0;
+
+document.getElementById('tm-note').style.display = 'block';
 
 // Copy ID
 function copyToClipboard(id, button) {
