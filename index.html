@@ -139,6 +139,39 @@ main {
   text-shadow: 5px 5px 10px black;
 }
 
+.feedback-btn {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: background-color 0.2s, transform 0.2s, border-color 0.2s;
+  z-index: 9999;
+}
+
+.feedback-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.github-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.85;
+}
+
 input {
   width: 100%; max-width: 500px;
   padding: 12px 15px; font-size: 16px;
@@ -247,6 +280,36 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
   <div id="results"></div>
 </main>
 
+<a
+  href="https://github.com/Murdervan/movie-id-finder/issues"
+  target="_blank"
+  class="feedback-btn"
+  title="Send feedback or report an issue"
+>
+  <svg
+    class="github-icon"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path
+      fill="currentColor"
+      d="M12 .5C5.73.5.5 5.74.5 12.03c0 5.11 3.29 9.45 7.86 10.98.58.11.79-.25.79-.56
+      0-.28-.01-1.02-.02-2-3.2.7-3.88-1.55-3.88-1.55-.53-1.35-1.29-1.71-1.29-1.71
+      -1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2
+      1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55
+      -2.56-.29-5.25-1.29-5.25-5.75 0-1.27.45-2.31 1.19-3.13
+      -.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.2
+      .92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39
+      2.2-1.51 3.17-1.2 3.17-1.2.64 1.59.24 2.77.12 3.06
+      .74.82 1.18 1.86 1.18 3.13 0 4.47-2.7 5.45-5.28 5.73
+      .41.36.78 1.08.78 2.18 0 1.58-.01 2.85-.01 3.23
+      0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.03
+      C23.5 5.74 18.27.5 12 .5z"
+    />
+  </svg>
+  <span>Feedback</span>
+</a>
+  
 <footer>
   <p>&copy; 2026 Movie ID Finder.</p>
   <a href="https://github.com/murdervan" target="_blank">
