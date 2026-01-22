@@ -16,7 +16,7 @@ Find your ID NUMBER from TMDB, IMDB & TVDB to request a movie!
 
   - Improved and smoother search experience
 
-  - Install Auto-Fill for nordicq.org (not officially tested) - REMOVED AGAIN_MAYBE COME AGAIN
+  - Install Auto-Fill for nordicq.org (not officially tested) - REMOVED AGAIN_MAYBE COME AGAIN - https://github.com/Murdervan/nordicq-movie-id-autofill
   
   - TheTVDb support added
 
