@@ -62,7 +62,6 @@ body::before {
   bottom: 16px;
   left: 16px;
   z-index: 2147483647;
-  max-width: 300px;
 }  
 
 
