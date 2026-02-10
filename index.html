@@ -19,332 +19,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Movie ID Finder</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-:root {
-  --bg-color: #121212;
-  --text-color: #ffffff;
-  --card-bg: rgba(30,30,30,0.85);
-  --tmdb-color: #1da1f2;
-  --imdb-color: #f1c40f;
-  --badge-bg: rgba(42,42,42,0.8);
-}
-
-body.light {
-  --bg-color: #f5f5f5;
-  --text-color: #121212;
-  --card-bg: rgba(255,255,255,0.85);
-  --tmdb-color: #1da1f2;
-  --imdb-color: #f1c40f;
-  --badge-bg: rgba(224,224,224,0.8);
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  transition: background-color 0.3s, color 0.3s;
-
-  background-image: url("https://raw.githubusercontent.com/Murdervan/movie-id-finder/main/image/movie-ID-finder-logo.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.6);
-  z-index: -1;
-}
-
-@media (max-width: 768px) {
-  body {
-    background-size: contain; 
-    background-position: center top;  
-  }
-}
-
-header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: var(--card-bg);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 60px 20px 30px 20px;
-  flex: 1;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.title-container { 
-  text-align: center;
-  margin-bottom: 8px; }
-.title-container h1 {
-  font-size: 60px; font-weight: bold; margin: 0;
-  background: linear-gradient(90deg, #1da1f2, #f1c40f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-}
-
-.subtitle {
-  font-size: 18px;
-  color: #ccc;
-  margin-top: 2px;
-  margin-bottom: 0px;
-}
-
-.poster-wrap {
-  width: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.poster-emoji {
-  font-size: 35px;
-  margin-top: 12px;
-  line-height: 1;
-}
-
-.poster-type {
-  font-size: 18px;
-  opacity: 0.75;
-  margin-top: 12px;
-  line-height: 1;
-  white-space: normal;
-  text-align: center;
-  color: white;
-  text-shadow: 5px 5px 10px black;
-}
-
-.feedback-btn {
-  position: fixed;
-  bottom: 56px;
-  left: 16px;
-
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  font-size: 13px;
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  padding: 6px 10px;
-  line-height: 1.3;
-  font-weight: 500;
-
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  backdrop-filter: blur(6px);
-
-  z-index: 2147483647;
-}
-
-
-.feedback-btn:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-1px);
-}
-
-.github-icon {
-  width: 16px;
-  height: 16px;
-  opacity: 0.85;
-}
-
-.star-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-
-  margin-top: 4px;
-  margin-bottom: 4px;
-
-  font-size: 11px;
-  color: #fff;
-  font-weight: 500;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 999px;
-  padding: 6px 10px;
-
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  backdrop-filter: blur(6px);
-
-  width: fit-content;
-  max-width: 420px;
-}
-
-.star-note .github-link {
-  color: #1da1f2;
-  font-weight: 800;
-  text-decoration: none;
-}
-
-/*<!-- .warning-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #ff4d4d;
-  background-color: rgba(0,0,0,0.6);
-  border-radius: 6px;
-  padding: 6px 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  backdrop-filter: blur(6px);
-  position: fixed;
-  bottom: 16px;
-  left: 16px;
-  z-index: 2147483647;
-} */
-  
-input {
-  width: 100%; max-width: 500px;
-  padding: 12px 15px; font-size: 16px;
-  border-radius: 8px; border: none; margin-bottom: 20px;
-  background-color: var(--card-bg); color: var(--text-color);
-}
-input:focus { outline: 2px solid var(--tmdb-color); }
-
-#results {
-  width: 100%; max-width: 800px;
-  display: flex; flex-direction: column; gap: 20px;
-}
-
-.movie {
-  display: flex; gap: 20px; align-items: flex-start;
-  background-color: var(--card-bg); padding: 15px; border-radius: 12px;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.movie:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-
-.movie img { width: 100px; border-radius: 8px; flex-shrink: 0; }
-
-.movie-info { display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
-.movie-info b { font-size: 20px; color: var(--tmdb-color); }
-.movie-info p { font-size: 14px; color: #ccc; margin: 4px 0; }
-
-.badges { display: flex; gap: 6px; flex-wrap: wrap; }
-.badge { background-color: var(--badge-bg); padding: 2px 6px; border-radius: 6px; font-size: 12px; color: var(--text-color); }
-
-.id-box { display: flex; justify-content: space-between; align-items: center; background-color: var(--badge-bg); padding: 8px 12px; border-radius: 8px; font-size: 14px; gap: 10px; border: 2px solid transparent; }
-.id-box a { color: var(--text-color); text-decoration: none; font-weight: bold; }
-.tmdb { border-color: var(--tmdb-color); }
-.imdb { border-color: var(--imdb-color); }
-.tvdb {
-  border-color: #4caf50;
-}
-
-.open-btn {
-  background-color: #4caf50;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  padding: 2px 6px;
-  font-size: 12px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background-color 0.2s;
-}
-
-.open-btn:hover {
-  background-color: #3e8e41;
-}
-
-.copy-btn { background-color: var(--tmdb-color); border: none; border-radius: 4px; color: #fff; padding: 2px 6px; font-size: 12px; cursor: pointer; transition: background-color 0.2s; }
-.copy-btn:hover { background-color: #0d8ddb; }
-.copy-btn.copied { background-color: #2ecc71 !important; }
-
-footer {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; background-color: var(--card-bg); padding: 15px 0; border-top: 2px solid #333;
-}
-footer p { margin: 0; color: var(--text-color); font-size: 14px; text-align: center; font-weight: bold; }
-footer a { margin: 0; color: var(--tmdb-color); font-size: 14px; text-decoration: none; font-weight: bold; }
-footer a:hover { text-decoration: underline; color: #0d8ddb; }
-
-/* Go to Top Button */
-#topBtn {
-  display: none;
-  position: fixed; bottom: 20px; right: 20px;
-  z-index: 99;
-  font-size: 18px;
-  border: none; outline: none;
-  background-color: var(--tmdb-color);
-  color: white; cursor: pointer;
-  padding: 10px 15px; border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  transition: background-color 0.3s;
-}
-#topBtn:hover { background-color: #0d8ddb; }
-</style>
+  <meta charset="UTF-8">
+  <title>Movie ID Finder</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
 
 <main>
   <div class="title-container">
     <h1>Movie ID Finder</h1>
     <p class="subtitle">
-  Quickly find movies & series on
-  <span style="color:#1da1f2;">TMDb</span>,
-  <span style="color:#f1c40f;">IMDb</span>
-  & <span style="color:#4caf50;">TheTVDb</span>
-  </p></div>
+      Quickly find movies & series on
+      <span class="tmdb-color">TMDb</span>,
+      <span class="imdb-color">IMDb</span>
+      & <span class="tvdb-color">TheTVDb</span>
+    </p>
+  </div>
+
   <div id="github-star" class="star-note">
-  ⭐ Enjoying the site?
-  <a href="https://github.com/Murdervan/movie-id-finder" target="_blank" class="tm-link">
-    <span class="github-link"><strong>Give it a star on GitHub</strong></span>
-  </a>
+    ⭐ Enjoying the site?
+    <a href="https://github.com/Murdervan/movie-id-finder" target="_blank" class="github-link"><strong>Give it a star on GitHub</strong></a>
   </div>
 
   <input id="q" placeholder="Search for a movie or TV series">
-  
   <div id="results"></div>
 </main>
 
-  <a
-  href="https://github.com/Murdervan/movie-id-finder/issues"
-  target="_blank"
-  class="feedback-btn"
-  title="Send feedback or report an issue"
->
-  <svg
-    class="github-icon"
-    viewBox="0 0 24 24"
-    aria-hidden="true"
-  >
-    <path
-      fill="currentColor"
-      d="M12 .5C5.73.5.5 5.74.5 12.03c0 5.11 3.29 9.45 7.86 10.98.58.11.79-.25.79-.56
+<!-- Feedback / GitHub issues button -->
+<a href="https://github.com/Murdervan/movie-id-finder/issues"
+   target="_blank"
+   class="feedback-btn"
+   title="Send feedback or report an issue">
+  <svg class="github-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M12 .5C5.73.5.5 5.74.5 12.03c0 5.11 3.29 9.45 7.86 10.98.58.11.79-.25.79-.56
       0-.28-.01-1.02-.02-2-3.2.7-3.88-1.55-3.88-1.55-.53-1.35-1.29-1.71-1.29-1.71
       -1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2
       1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55
@@ -355,27 +63,18 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
       .74.82 1.18 1.86 1.18 3.13 0 4.47-2.7 5.45-5.28 5.73
       .41.36.78 1.08.78 2.18 0 1.58-.01 2.85-.01 3.23
       0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.03
-      C23.5 5.74 18.27.5 12 .5z"
-    />
+      C23.5 5.74 18.27.5 12 .5z"/>
   </svg>
   <span>Feedback</span>
 </a>
 
-<!-- <div id="warning-btn" style="
-  position: fixed;
-  bottom: 20px;
-  left: 16px;
-  font-size: 12px;
-  color: #ff4d4d;
-  background-color: rgba(0,0,0,0.6);
-  padding: 6px 10px;
-  border-radius: 6px;
-  z-index: 2147483647;
-  max-width: 300px;
-">
-⚠️ BEWARE OF - <strong>DANISHBYTES SITE</strong> - FULL OF MALWARE TRACKERS ⚠️
-</div> -->
-  
+<!-- Warning button (hidden by default) -->
+<!--
+<div id="warning-btn" class="warning-btn">
+  ⚠️ BEWARE OF - <strong>DANISHBYTES SITE</strong> - FULL OF MALWARE TRACKERS ⚠️
+</div>
+-->
+
 <footer>
   <p>&copy; 2026 Movie ID Finder.</p>
   <a href="https://github.com/murdervan" target="_blank">
@@ -383,146 +82,9 @@ footer a:hover { text-decoration: underline; color: #0d8ddb; }
   </a>
   <span>Open source</span>
 </footer>
-  
+
 <button onclick="topFunction()" id="topBtn" title="Go to top">↑</button>
-  
-<script>
-document.getElementById('github-star').style.display = 'block';
 
-const API_KEY = "b7a512be09653a21e9b9cc99a026ae46";
-const q = document.getElementById("q");
-const results = document.getElementById("results");
-const topBtn = document.getElementById("topBtn");
-let searchId = 0;
-
-// Copy ID
-function copyToClipboard(id, button) {
-  navigator.clipboard.writeText(id);
-  button.textContent = "Copied!";
-  button.classList.add("copied");
-  setTimeout(() => {
-    button.textContent = "Copy";
-    button.classList.remove("copied");
-  }, 1500);
-}
-
-// Scroll-to-top button
-window.onscroll = () => {
-  topBtn.style.display =
-    document.documentElement.scrollTop > 100 ? "block" : "none";
-};
-function topFunction() {
-  document.documentElement.scrollTop = 0;
-}
-
-// Search movies + TV
-q.addEventListener("input", async () => {
-  const currentSearch = ++searchId;
-  results.innerHTML = "";
-  
-  let queryText = q.value.trim().replace(/\s+/g, ' ');
-  if (queryText.length < 2) return;
-
-  const query = encodeURIComponent(queryText);
-
-  const [movieRes, tvRes] = await Promise.all([
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`).then(r => r.json()),
-    fetch(`https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${query}`).then(r => r.json())
-  ]);
-
-  if (currentSearch !== searchId) return;
-
-  const combined = [
-    ...movieRes.results.map(r => ({ ...r, media_type: "movie" })),
-    ...tvRes.results.map(r => ({ ...r, media_type: "tv" }))
-  ];
-
-
-  for (const item of combined) {
-    const detailUrl =
-      item.media_type === "movie"
-        ? `https://api.themoviedb.org/3/movie/${item.id}?api_key=${API_KEY}`
-        : `https://api.themoviedb.org/3/tv/${item.id}?api_key=${API_KEY}`;
-
-    const d = await fetch(detailUrl).then(r => r.json());
-    if (currentSearch !== searchId) return;
-
-    const title = d.title || d.name;
-    const year = (d.release_date || d.first_air_date || "").slice(0, 4) || "N/A";
-    const poster = d.poster_path
-      ? `https://image.tmdb.org/t/p/w200${d.poster_path}`
-      : "https://via.placeholder.com/100x150?text=No+Image";
-
-    const tmdbLink =
-      item.media_type === "movie"
-        ? `https://www.themoviedb.org/movie/${d.id}`
-        : `https://www.themoviedb.org/tv/${d.id}`;
-
-    const imdbIdNum = d.imdb_id ? d.imdb_id.replace(/^tt/, "") : null;
-    const imdbLink = imdbIdNum
-      ? `https://www.imdb.com/title/tt${imdbIdNum}/`
-      : "#";
-
-    const tvdbSearch = `https://www.thetvdb.com/search?query=${encodeURIComponent(title)}`;
-    const tvdbSeries = `https://www.thetvdb.com/series/${encodeURIComponent(
-      title.toLowerCase().replace(/[^a-z0-9]+/g, "-")
-    )}`;
-
-    const genreBadges =
-      d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
-
-    results.innerHTML += `
-  <div class="movie">
-
-  <div class="poster-wrap">
-    <img src="${poster}" alt="${title}" loading="lazy">
-
-    <div class="poster-emoji">
-      ${item.media_type === "tv" ? "📺" : "🎬"}
-    </div>
-
-    <div class="poster-type">
-      ${item.media_type === "tv" ? "TV Series" : "Movie"}
-    </div>
-  </div>
-
-  <div class="movie-info">
-    <b>${title} (${year})</b>
-    <div class="badges">${genreBadges}</div>
-    <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
-    <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
-
-    <div class="id-box tmdb">
-      <a href="${tmdbLink}" target="_blank">TMDb ID: ${d.id}</a>
-      <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
-    </div>
-
-    ${
-      imdbIdNum
-        ? `<div class="id-box imdb">
-            <a href="${imdbLink}" target="_blank">IMDb ID: ${imdbIdNum}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${imdbIdNum}', this)">Copy</button>
-          </div>`
-        : ""
-    }
-
-    ${
-      item.media_type === "tv"
-        ? `<div class="id-box tvdb">
-            <span>TheTVDb ID Page</span>
-            <a class="open-btn" href="${tvdbSearch}" target="_blank">OPEN</a>
-          </div>`
-        : ""
-    }
-  </div>
-
-</div>
-
-    `;
-  }
-});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
-
