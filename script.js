@@ -67,6 +67,13 @@ q.addEventListener("input", async () => {
 
     const genreBadges = d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
 
+    const warningClose = document.getElementById("warning-close");
+if (warningClose) {
+  warningClose.addEventListener("click", () => {
+    document.getElementById("warning-btn").style.display = "none";
+  });
+}
+
     results.innerHTML += `
 <div class="movie">
   <div class="poster-wrap">
