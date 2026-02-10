@@ -19,40 +19,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Movie ID Finder</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<title>Movie ID Finder</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+
+<header>
+  <!-- Header kan tilføjes hvis du vil have sticky top -->
+</header>
 
 <main>
   <div class="title-container">
     <h1>Movie ID Finder</h1>
     <p class="subtitle">
       Quickly find movies & series on
-      <span class="tmdb-color">TMDb</span>,
-      <span class="imdb-color">IMDb</span>
-      & <span class="tvdb-color">TheTVDb</span>
+      <span style="color:#1da1f2;">TMDb</span>,
+      <span style="color:#f1c40f;">IMDb</span>
+      & <span style="color:#4caf50;">TheTVDb</span>
     </p>
   </div>
 
   <div id="github-star" class="star-note">
     ⭐ Enjoying the site?
-    <a href="https://github.com/Murdervan/movie-id-finder" target="_blank" class="github-link"><strong>Give it a star on GitHub</strong></a>
+    <a href="https://github.com/Murdervan/movie-id-finder" target="_blank" class="tm-link">
+      <span class="github-link"><strong>Give it a star on GitHub</strong></span>
+    </a>
   </div>
 
   <input id="q" placeholder="Search for a movie or TV series">
+
   <div id="results"></div>
 </main>
 
-<!-- Feedback / GitHub issues button -->
 <a href="https://github.com/Murdervan/movie-id-finder/issues"
    target="_blank"
    class="feedback-btn"
    title="Send feedback or report an issue">
   <svg class="github-icon" viewBox="0 0 24 24" aria-hidden="true">
-    <path fill="currentColor" d="M12 .5C5.73.5.5 5.74.5 12.03c0 5.11 3.29 9.45 7.86 10.98.58.11.79-.25.79-.56
+    <path fill="currentColor"
+      d="M12 .5C5.73.5.5 5.74.5 12.03c0 5.11 3.29 9.45 7.86 10.98.58.11.79-.25.79-.56
       0-.28-.01-1.02-.02-2-3.2.7-3.88-1.55-3.88-1.55-.53-1.35-1.29-1.71-1.29-1.71
       -1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2
       1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55
@@ -68,13 +75,6 @@
   <span>Feedback</span>
 </a>
 
-<!-- Warning button (hidden by default) -->
-<!--
-<div id="warning-btn" class="warning-btn">
-  ⚠️ BEWARE OF - <strong>DANISHBYTES SITE</strong> - FULL OF MALWARE TRACKERS ⚠️
-</div>
--->
-
 <footer>
   <p>&copy; 2026 Movie ID Finder.</p>
   <a href="https://github.com/murdervan" target="_blank">
@@ -84,6 +84,11 @@
 </footer>
 
 <button onclick="topFunction()" id="topBtn" title="Go to top">↑</button>
+
+  <div id="warning-btn">
+  ⚠️ BEWARE OF - <strong>DANISHBYTES SITE</strong> - FULL OF MALWARE TRACKERS ⚠️
+</div>
+
 
 <script src="script.js"></script>
 </body>
