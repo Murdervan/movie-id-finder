@@ -89,30 +89,20 @@ main { display:flex; flex-direction:column; align-items:center; padding:60px 20p
 }
 
 /* Go to Top Button */
-.results-wrap {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-}
-
-#results {
-  max-height: 70vh;
-  overflow-y: auto;
-}
-
-#topBtn {
-  display: none;
-  position: absolute;
-  right: -60px;
-  bottom: 0;
-  font-size: 18px;
-  background-color: var(--tmdb-color);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  padding: 10px 15px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+#topBtn { display:none;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:99;
+  font-size:18px;
+  border:none;
+  outline:none;
+  background-color:var(--tmdb-color);
+  color:white; cursor:pointer;
+  padding:10px 15px;
+  border-radius:50%;
+  box-shadow:0 2px 6px rgba(0,0,0,0.5);
+  transition:background-color 0.3s; 
 }
 
 input { width:100%; max-width:500px; padding:12px 15px; font-size:16px; border-radius:8px; border:none; margin-bottom:20px; background-color:var(--card-bg); color:var(--text-color); }
