@@ -49,7 +49,6 @@ body::before {
   body { background-size: contain; background-position: center top; }
 }
 
-header { display:flex; justify-content:flex-end; align-items:center; padding:10px 20px; background-color:var(--card-bg); box-shadow:0 2px 6px rgba(0,0,0,0.5); position:sticky; top:0; z-index:100; }
 main { display:flex; flex-direction:column; align-items:center; padding:60px 20px 30px; flex:1; width:100%; box-sizing:border-box; }
 
 .title-container { text-align:center; margin-bottom:8px; }
@@ -89,6 +88,32 @@ main { display:flex; flex-direction:column; align-items:center; padding:60px 20p
   z-index:2147483647;
 }
 
+/* Go to Top Button */
+.results-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+}
+
+#results {
+  width: 100%;
+}
+
+#topBtn {
+  display: none;
+  position: absolute;
+  right: -60px;
+  bottom: 0;
+  font-size: 18px;
+  background-color: var(--tmdb-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
 input { width:100%; max-width:500px; padding:12px 15px; font-size:16px; border-radius:8px; border:none; margin-bottom:20px; background-color:var(--card-bg); color:var(--text-color); }
 input:focus { outline:2px solid var(--tmdb-color); }
 
@@ -122,6 +147,3 @@ footer p { margin:0; color:var(--text-color); font-size:14px; text-align:center;
 footer a { margin:0; color:var(--tmdb-color); font-size:14px; text-decoration:none; font-weight:bold; }
 footer a:hover { text-decoration:underline; color:#0d8ddb; }
 
-/* Go to Top Button */
-#topBtn { display:none; position:fixed; bottom:20px; right:20px; z-index:99; font-size:18px; border:none; outline:none; background-color:var(--tmdb-color); color:white; cursor:pointer; padding:10px 15px; border-radius:50%; box-shadow:0 2px 6px rgba(0,0,0,0.5); transition:background-color 0.3s; }
-#topBtn:hover { background-color:#0d8ddb; }
