@@ -16,10 +16,12 @@ function copyToClipboard(id, button) {
 }
 
 // Scroll-to-top button
-window.onscroll = () => {
-  topBtn.style.display =
-    document.documentElement.scrollTop > 100 ? "block" : "none";
-};
+const results = document.getElementById("results");
+const topBtn = document.getElementById("topBtn");
+
+results.addEventListener("scroll", () => {
+  topBtn.style.display = results.scrollTop > 100 ? "block" : "none";
+});
 
 // Search movies + TV
 q.addEventListener("input", async () => {
