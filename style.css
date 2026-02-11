@@ -96,7 +96,8 @@ main { display:flex; flex-direction:column; align-items:center; padding:60px 20p
 }
 
 #results {
-  width: 100%;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 #topBtn {
