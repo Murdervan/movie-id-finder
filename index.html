@@ -2,18 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie ID Finder</title>
+
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
 
-<!--WARNING BOX-->
-  <!--
+<!-- WARNING BOX -->
+<!--
 <div id="warning-btn">
   ⚠️ BEWARE ⚠️
 </div>
--->    
+-->
 
 <main>
   <div class="title-container">
@@ -28,34 +31,28 @@
 
   <div id="github-star" class="star-note">
     ⭐ Enjoying the site?
-    <a href="https://github.com/Murdervan/movie-id-finder" target="_blank" class="tm-link">
-      <span class="github-link"><strong>Give it a star on GitHub</strong></span>
+    <a href="https://github.com/Murdervan/movie-id-finder"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="tm-link">
+      <span class="github-link">
+        <strong>Give it a star on GitHub</strong>
+      </span>
     </a>
   </div>
 
   <input id="q" placeholder="Search for a movie or TV series">
   <div id="results"></div>
-</div>
-  
+
   <button onclick="topFunction()" id="topBtn" title="Go to top">↑</button>
-  
 </main>
 
-  <div class="bottom-left-wrapper">
- <div class="strawpoll-container">
-    <iframe 
-        src="https://strawpoll.com/embed/NoZrzB1raZ3"
-        title="StrawPoll Embed"
-        frameborder="0"
-        allowtransparency
-        class="strawpoll-iframe">
-    </iframe>
-  </div>
-
-  <a href="https://github.com/murdervan/movie-id-finder/issues" 
-   class="feedback-btn" 
+<!-- Feedback Button -->
+<a href="https://github.com/murdervan/movie-id-finder/issues"
+   class="feedback-btn"
+   target="_blank"
+   rel="noopener noreferrer"
    title="Send feedback or report an issue">
-
   <svg class="github-icon" viewBox="0 0 24 24" aria-hidden="true">
     <path fill="currentColor"
       d="M12 .5C5.73.5.5 5.74.5 12.03c0 5.11 3.29 9.45 7.86 10.98.58.11.79-.25.79-.56
@@ -71,13 +68,25 @@
       0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.03
       C23.5 5.74 18.27.5 12 .5z"/>
   </svg>
- <span>Feedback</span>
+  <span>Feedback</span>
 </a>
-  </div>
-  
+
+<!-- StrawPoll -->
+<div class="strawpoll-container">
+  <iframe 
+      src="https://strawpoll.com/embed/NoZrzB1raZ3"
+      title="StrawPoll Embed"
+      frameborder="0"
+      allowtransparency
+      class="strawpoll-iframe">
+  </iframe>
+</div>
+
 <footer>
   <p>&copy; 2026 Movie ID Finder.</p>
-  <a href="https://github.com/murdervan" target="_blank">
+  <a href="https://github.com/murdervan"
+     target="_blank"
+     rel="noopener noreferrer">
     <i class="fab fa-github"></i> GitHub
   </a>
   <span>Open source</span>
@@ -86,4 +95,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
