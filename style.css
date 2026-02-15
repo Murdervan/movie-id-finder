@@ -46,11 +46,11 @@ body::before {
 }
 
 .strawpoll-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  transform: scale(0.7);          /* gør den 70% af original størrelse */
-  transform-origin: bottom left;  /* skalerer fra venstre nederste hjørne */
+  position: absolute;       /* placeres i footer-wrapper */
+  bottom: 20px;             /* afstand fra bunden */
+  left: 20px;               /* afstand fra venstre kant */
+  transform: scale(0.7);    /* mindre størrelse */
+  transform-origin: bottom left;
   z-index: 1;
 }
 
@@ -58,6 +58,32 @@ body::before {
   width: 400px;   /* original bredde */
   height: 300px;  /* original højde */
   border: 0;
+}
+
+.feedback-btn {
+  position: absolute;       /* placeres i footer-wrapper */
+  bottom: 20px;             /* samme bund som poll */
+  left: 440px;              /* rykket til højre for poll */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #fff;
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  padding: 6px 10px;
+  line-height: 1.3;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  backdrop-filter: blur(6px);
+  z-index: 2;
+}
+
+.feedback-btn:hover {
+  background-color: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-1px);
 }
 
 @media (max-width:768px){
@@ -73,32 +99,6 @@ main { display:flex; flex-direction:column; align-items:center; padding:60px 20p
 .poster-wrap { width:100px; display:flex; flex-direction:column; align-items:center; text-align:center; flex-shrink:0; }
 .poster-emoji { font-size:35px; margin-top:12px; line-height:1; }
 .poster-type { font-size:18px; opacity:0.75; margin-top:12px; line-height:1; white-space:normal; text-align:center; color:white; text-shadow:5px 5px 10px black; }
-
-.feedback-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: #fff;
-  background-color: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  padding: 6px 10px;
-  line-height: 1.3;
-  font-weight: 500;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  backdrop-filter: blur(6px);
-  margin-left: 20px;
-  margin-bottom: 10px;
-  z-index: 10;
-}
-
-.feedback-btn:hover {
-  background-color: rgba(255,255,255,0.2);
-  border-color: rgba(255,255,255,0.4);
-  transform: translateY(-1px);
-}
 
 .github-icon { width:16px; height:16px; opacity:0.85; }
 .star-note { display:inline-flex; align-items:center; gap:6px; margin:4px 0; font-size:11px; color:#fff; font-weight:500; background-color:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:6px 10px; box-shadow:0 2px 6px rgba(0,0,0,0.2); backdrop-filter:blur(6px); width:fit-content; max-width:420px; }
