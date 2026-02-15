@@ -79,11 +79,10 @@ body::before {
 }
 
 .bottom-left-wrapper {
-  margin-left: 20px;
-  margin-bottom: 20px;
+  margin: 40px 0 20px 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 @media (max-width:768px){
