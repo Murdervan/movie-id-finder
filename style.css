@@ -45,6 +45,21 @@ body::before {
   z-index: -1;
 }
 
+.strawpoll-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: scale(0.7);          /* gør den 70% af original størrelse */
+  transform-origin: bottom left;  /* skalerer fra venstre nederste hjørne */
+  z-index: 1;
+}
+
+.strawpoll-iframe {
+  width: 400px;   /* original bredde */
+  height: 300px;  /* original højde */
+  border: 0;
+}
+
 @media (max-width:768px){
   body { background-size: contain; background-position: center top; }
 }
