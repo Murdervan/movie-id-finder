@@ -50,14 +50,16 @@ body::before {
   position: fixed;
   top: 100px;
   left: 20px;
-  transform: scale(0.75);
-  transform-origin: top left;
+  width: 300px;
+  max-width: 90vw;
+  height: 225px;
+  max-height: 50vh;
   z-index: 10;
 }
 
 .strawpoll-container iframe {
-  width: 640px;
-  height: 480px;
+  width: 100%;
+  height: 100%;
   border: none;
 }
 
@@ -239,13 +241,11 @@ footer a:hover { text-decoration:underline; color:#0d8ddb; }
 
 /* Responsive Media Queries */
 @media (max-width:1024px) {
-  .strawpoll-container { transform: scale(0.65); top:80px; left:10px; }
   .title-container h1 { font-size:48px; }
 }
 
 @media (max-width:768px) {
   body { background-size:contain; background-position:center top; }
-  .strawpoll-container { transform: scale(0.6); top:70px; left:5px; }
   .title-container h1 { font-size:36px; }
   .subtitle { font-size:16px; }
   input { font-size:14px; padding:10px 12px; }
@@ -257,10 +257,10 @@ footer a:hover { text-decoration:underline; color:#0d8ddb; }
   .badges { gap:4px; }
   footer { flex-direction:column; padding:10px 5px; }
   #warning-btn { font-size:11px; padding:5px 8px; bottom:12px; left:12px; max-width:220px; gap:4px; }
+  .strawpoll-container { top:60px; left:5px; width:90vw; height:calc(90vw*0.75); }
 }
 
 @media (max-width:480px) {
-  .strawpoll-container { transform: scale(0.5); top:60px; left:5px; }
   .title-container h1 { font-size:28px; }
   .subtitle { font-size:14px; }
   input { font-size:13px; padding:8px 10px; }
@@ -270,4 +270,5 @@ footer a:hover { text-decoration:underline; color:#0d8ddb; }
   .id-box { font-size:12px; }
   .badges { gap:3px; }
   #warning-btn { font-size:10px; padding:4px 6px; bottom:10px; left:8px; max-width:180px; gap:3px; }
+  .strawpoll-container { top:50px; left:5px; width:95vw; height:calc(95vw*0.75); }
 }
