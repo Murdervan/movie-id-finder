@@ -78,6 +78,16 @@ body::before {
   transform: translateY(-1px);
 }
 
+.bottom-left-wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
 @media (max-width:768px){
   body { background-size: contain; background-position: center top; }
 }
