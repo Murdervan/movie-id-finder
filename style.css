@@ -79,13 +79,10 @@ body::before {
 }
 
 .bottom-left-wrapper {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
+  margin: 40px 0 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  z-index: 9999;
 }
 
 @media (max-width:768px){
