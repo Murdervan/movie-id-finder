@@ -46,17 +46,17 @@ body::before {
 }
 
 .strawpoll-container {
-  position: absolute; /* placerer den relativt til forældreelementet */
-  top: 100px;         /* juster efter behov */
-  left: 20px;         /* afstand fra venstre kant */
-  transform: scale(0.75); /* skalerer embed til 75% */
-  transform-origin: top left; /* sørger for at skalering starter fra øverste venstre hjørne */
-  z-index: 10;       /* sikrer at den ligger ovenpå andre elementer hvis nødvendigt */
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  transform: scale(0.75);
+  transform-origin: top left;
+  z-index: 10;
 }
 
 .strawpoll-container iframe {
-  width: 640px;      /* original bredde på iframe */
-  height: 480px;     /* original højde på iframe */
+  width: 640px;
+  height: 480px;
   border: none;
 }
 
@@ -139,4 +139,3 @@ footer a:hover { text-decoration:underline; color:#0d8ddb; }
 /* Go to Top Button */
 #topBtn { display:none; position:fixed; bottom:50px; right:20px; z-index:99; font-size:18px; border:none; outline:none; background-color:var(--tmdb-color); color:white; cursor:pointer; padding:10px 15px; border-radius:50%; box-shadow:0 2px 6px rgba(0,0,0,0.5); transition:background-color 0.3s; }
 #topBtn:hover { background-color:#0d8ddb; }
-
