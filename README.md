@@ -14,4 +14,4 @@ Find your ID NUMBER from TMDB, IMDB & TVDB to request a movie!
   
 <p align="center">Version update 2.0.2 – What’s new:
 
-  - Poll / voteing
+  - Poll / voteing (removed)
