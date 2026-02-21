@@ -127,7 +127,7 @@ main { display:flex; flex-direction:column; align-items:center; padding:60px 20p
 .star-note { display:inline-flex; align-items:center; gap:6px; margin:4px 0; font-size:11px; color:#fff; font-weight:500; background-color:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:999px; padding:6px 10px; box-shadow:0 2px 6px rgba(0,0,0,0.2); backdrop-filter:blur(6px); width:fit-content; max-width:420px; }
 .star-note .github-link { color: var(--tmdb-color); font-weight:800; text-decoration:none; }
 
-/* Warning box
+/*Warning box
 #warning-btn {
   display:flex;
   align-items:center;
@@ -147,7 +147,8 @@ main { display:flex; flex-direction:column; align-items:center; padding:60px 20p
   max-width:300px;
   line-height:1;
   z-index:2147483647;
-}*/
+}
+*/
 
 input { width:100%; max-width:500px; padding:12px 15px; font-size:16px; border-radius:8px; border:none; margin-bottom:20px; background-color:var(--card-bg); color:var(--text-color); }
 input:focus { outline:2px solid var(--tmdb-color); }
