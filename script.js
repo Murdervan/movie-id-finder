@@ -24,9 +24,10 @@ async function loadLatestMovies() {
       try {
         const ext = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/external_ids?api_key=${API_KEY}`);
         const extData = await ext.json();
+
         if (extData.imdb_id) {
-  imdbId = extData.imdb_id.replace(/^tt/, "");
-}
+          imdbId = extData.imdb_id.replace(/^tt/, "");
+        }
       } catch {}
 
       const poster = movie.poster_path
@@ -45,6 +46,7 @@ async function loadLatestMovies() {
         <div class="latest-movie-item">
           <img class="latest-movie-poster" src="${poster}" alt="${movie.title}">
           <div class="latest-movie-info">
+
             <div class="latest-movie-title">${movie.title}</div>
 
             <div class="latest-movie-meta">
@@ -57,12 +59,14 @@ async function loadLatestMovies() {
 
             <div class="latest-movie-id">
               <span class="tmdb-id" data-id="${movie.id}">
-  TMDb ID: ${movie.id}
-</span>
+                TMDb ID: ${movie.id}
+              </span>
+
               ${imdbId !== "N/A" ? `
                 <span class="imdb-id" data-id="${imdbId}">
                   IMDb ID: ${imdbId}
-                </span>` : ""}
+                </span>
+              ` : ""}
             </div>
 
             <div>
@@ -70,6 +74,7 @@ async function loadLatestMovies() {
                 View on TMDB
               </a>
             </div>
+
           </div>
         </div>
       `;
@@ -81,6 +86,24 @@ async function loadLatestMovies() {
 }
 
 document.addEventListener("DOMContentLoaded", loadLatestMovies);
+
+document.addEventListener("click", function(e) {
+
+  if (e.target.classList.contains("tmdb-id") ||
+      e.target.classList.contains("imdb-id")) {
+
+    const id = e.target.getAttribute("data-id");
+    if (!id) return;
+
+    navigator.clipboard.writeText(id);
+
+
+    setTimeout(() => {
+      e.target.innerText = original;
+    }, 1000);
+  }
+
+});
 
 // Copy ID
 function copyToClipboard(id, button) {
