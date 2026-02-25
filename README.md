@@ -10,7 +10,7 @@ Find your ID NUMBER from TMDB, IMDB & TVDB to request a movie!
 
 <p align="center"><img src="image/movie-ID-finder-logo.png" width="568" alt="Movie ID Finder">
 
-<p align="center">Update - 15/02-2026
+<p align="center">Update - 25/02-2026
   
 <p align="center">Version update 2.1.0 – What’s new:
 
