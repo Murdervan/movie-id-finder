@@ -4,7 +4,6 @@ const results = document.getElementById("results");
 const topBtn = document.getElementById("topBtn");
 let searchId = 0;
 
-
 //LOAD LATEST MOVIES
 async function loadLatestMovies() {
   try {
@@ -105,7 +104,7 @@ document.addEventListener("click", function(e) {
 
 });
 
-// Copy ID
+// COPY BUTTON (SEARCH RESULTS)
 function copyToClipboard(id, button) {
   navigator.clipboard.writeText(id);
   button.textContent = "Copied!";
@@ -116,15 +115,16 @@ function copyToClipboard(id, button) {
   }, 1500);
 }
 
-// Scroll-to-top button
+// SCROLL TO TOP
 window.onscroll = () => {
   topBtn.style.display = document.documentElement.scrollTop > 100 ? "block" : "none";
 };
+
 function topFunction() {
   document.documentElement.scrollTop = 0;
 }
 
-// Search movies + TV
+// SEARCH MOVIES + TV
 q.addEventListener("input", async () => {
   const currentSearch = ++searchId;
   results.innerHTML = "";
@@ -146,6 +146,7 @@ q.addEventListener("input", async () => {
   ];
 
   for (const item of combined) {
+
     const detailUrl = item.media_type === "movie"
       ? `https://api.themoviedb.org/3/movie/${item.id}?api_key=${API_KEY}`
       : `https://api.themoviedb.org/3/tv/${item.id}?api_key=${API_KEY}`;
@@ -155,7 +156,9 @@ q.addEventListener("input", async () => {
 
     const title = d.title || d.name;
     const year = (d.release_date || d.first_air_date || "").slice(0, 4) || "N/A";
-    const poster = d.poster_path ? `https://image.tmdb.org/t/p/w200${d.poster_path}` : "https://via.placeholder.com/100x150?text=No+Image";
+    const poster = d.poster_path
+      ? `https://image.tmdb.org/t/p/w200${d.poster_path}`
+      : "https://via.placeholder.com/100x150?text=No+Image";
 
     const tmdbLink = item.media_type === "movie"
       ? `https://www.themoviedb.org/movie/${d.id}`
@@ -165,7 +168,6 @@ q.addEventListener("input", async () => {
     const imdbLink = imdbIdNum ? `https://www.imdb.com/title/tt${imdbIdNum}/` : "#";
 
     const tvdbSearch = `https://www.thetvdb.com/search?query=${encodeURIComponent(title)}`;
-
     const genreBadges = d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
 
     results.innerHTML += `
@@ -199,5 +201,25 @@ q.addEventListener("input", async () => {
     </div>` : ""}
   </div>
 </div>`;
+  }
+});
+
+
+// CLICK TO COPY (SIDEBAR IDs)
+document.addEventListener("click", function(e) {
+  if (e.target.classList.contains("tmdb-id") || 
+      e.target.classList.contains("imdb-id")) {
+
+    const id = e.target.getAttribute("data-id");
+    navigator.clipboard.writeText(id);
+
+    const original = e.target.innerText;
+    e.target.innerText = "Copied!";
+    e.target.style.opacity = "0.6";
+
+    setTimeout(() => {
+      e.target.innerText = original;
+      e.target.style.opacity = "1";
+    }, 800);
   }
 });
