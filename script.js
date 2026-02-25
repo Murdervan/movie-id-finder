@@ -88,18 +88,26 @@ document.addEventListener("DOMContentLoaded", loadLatestMovies);
 
 document.addEventListener("click", function(e) {
 
-  if (e.target.classList.contains("tmdb-id") ||
+  if (e.target.classList.contains("tmdb-id") || 
       e.target.classList.contains("imdb-id")) {
 
     const id = e.target.getAttribute("data-id");
     if (!id) return;
 
-    navigator.clipboard.writeText(id);
+    const original = e.target.innerText;
+    const color = getComputedStyle(e.target).color;
 
+    navigator.clipboard.writeText(id).then(() => {
 
-    setTimeout(() => {
-      e.target.innerText = original;
-    }, 1000);
+      e.target.innerText = "Copied!";
+      e.target.style.color = color;
+
+      setTimeout(() => {
+        e.target.innerText = original;
+      }, 1000);
+
+    });
+
   }
 
 });
