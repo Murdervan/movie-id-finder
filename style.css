@@ -48,7 +48,7 @@ body::before {
 /* LATEST MOVIES SIDEBAR */
 #latest-movies-box {
   position: fixed;
-  top: 80px;
+  top: 82px;
   left: 80px;
   width: 360px;
   max-height: 50vh;
