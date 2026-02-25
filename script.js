@@ -4,6 +4,84 @@ const results = document.getElementById("results");
 const topBtn = document.getElementById("topBtn");
 let searchId = 0;
 
+
+//LOAD LATEST MOVIES
+async function loadLatestMovies() {
+  try {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`);
+    const data = await res.json();
+
+    const container = document.getElementById("latest-movies-container");
+    if (!container || !data.results) return;
+
+    container.innerHTML = "";
+
+    const movies = data.results.slice(0, 5);
+
+    for (const movie of movies) {
+
+      let imdbId = "N/A";
+      try {
+        const ext = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/external_ids?api_key=${API_KEY}`);
+        const extData = await ext.json();
+        if (extData.imdb_id) {
+  imdbId = extData.imdb_id.replace(/^tt/, "");
+}
+      } catch {}
+
+      const poster = movie.poster_path
+        ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+        : "https://via.placeholder.com/80x120?text=No+Image";
+
+      let releaseClass = "release-date-red";
+      if (movie.release_date) {
+        const releaseDate = new Date(movie.release_date);
+        const today = new Date();
+        const diffDays = (today - releaseDate) / (1000 * 60 * 60 * 24);
+        if (diffDays <= 30) releaseClass = "release-date-neon";
+      }
+
+      container.innerHTML += `
+        <div class="latest-movie-item">
+          <img class="latest-movie-poster" src="${poster}" alt="${movie.title}">
+          <div class="latest-movie-info">
+            <div class="latest-movie-title">${movie.title}</div>
+
+            <div class="latest-movie-meta">
+              Release: <span class="${releaseClass}">
+                ${movie.release_date || "N/A"}
+              </span>
+            </div>
+
+            <div class="latest-movie-rating">⭐ ${movie.vote_average}</div>
+
+            <div class="latest-movie-id">
+              <span class="tmdb-id" data-id="${movie.id}">
+  TMDb ID: ${movie.id}
+</span>
+              ${imdbId !== "N/A" ? `
+                <span class="imdb-id" data-id="${imdbId}">
+                  IMDb ID: ${imdbId}
+                </span>` : ""}
+            </div>
+
+            <div>
+              <a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank">
+                View on TMDB
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+  } catch (err) {
+    console.error("Latest movies error:", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadLatestMovies);
+
 // Copy ID
 function copyToClipboard(id, button) {
   navigator.clipboard.writeText(id);
