@@ -45,6 +45,122 @@ body::before {
   z-index: -1;
 }
 
+/* LATEST MOVIES SIDEBAR */
+#latest-movies-box {
+  position: fixed;
+  top: 80px;
+  left: 80px;
+  width: 360px;
+  max-height: 50vh;
+  overflow-y: auto;
+  background: rgba(20,20,20,0.95);
+  color: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  z-index: 9999;
+}
+
+#latest-movies-box h2 {
+  margin-top: 0;
+  font-size: 16px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 6px;
+}
+
+.latest-movie-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.latest-movie-poster {
+  width: 70px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.latest-movie-info {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.latest-movie-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.latest-movie-meta {
+  font-size: 11px;
+  color: #aaa;
+}
+
+.latest-movie-rating {
+  font-size: 11px;
+  margin: 4px 0;
+}
+
+/* ID STYLING (TMDB + IMDb) */
+.latest-movie-id {
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+/* TMDB ID */
+.tmdb-id {
+  color: var(--tmdb-color); /* blå */
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* IMDb ID */
+.imdb-id {
+  color: #f5c518; /* IMDb gul */
+  cursor: pointer;
+  font-weight: 600;
+  user-select: all;
+}
+
+.tmdb-id:hover,
+.imdb-id:hover {
+  text-shadow: 0 0 6px currentColor;
+}
+
+/* RELEASE DATE FARVER */
+.release-date-red {
+  color: #ff3b3b;
+  font-weight: 600;
+}
+
+.release-date-neon {
+  color: #39ff14;
+  font-weight: 600;
+  text-shadow: 0 0 6px #39ff14;
+}
+
+.latest-movie-info a {
+  font-size: 11px;
+  color: var(--tmdb-color);
+  text-decoration: none;
+}
+
+.latest-movie-info a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1200px) {
+  #latest-movies-box {
+    display: none;
+  }
+}
+
 @media (max-width:768px){
   body { background-size: contain; background-position: center top; }
 }
