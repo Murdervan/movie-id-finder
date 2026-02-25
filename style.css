@@ -157,7 +157,7 @@ body::before {
 
 .release-info-box {
   position: fixed;
-  top: 32px;
+  top: 30px;
   left: 80px;
 
   display: flex;
