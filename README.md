@@ -1,4 +1,4 @@
-# MOVIE ID FINDER ![Version](https://img.shields.io/badge/version-2.1.0-blue)</p>
+# MOVIE ID FINDER !
 <div align="right">
   
   ### Check out my other 
