@@ -51,8 +51,8 @@ body::before {
   top: 82px;
   left: 80px;
   width: 310px;
-  max-height: 70vh;
-  
+  max-height: 65vh;
+  overflow-y: auto;
   background: rgba(20,20,20,0.95);
   color: #fff;
   padding: 15px;
