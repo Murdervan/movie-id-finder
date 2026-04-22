@@ -77,9 +77,8 @@ body::before {
 }
 
 .latest-movie-poster {
-  width: 70px;
+  width: 85px;
   border-radius: 6px;
-  flex-shrink: 0;
 }
 
 .latest-movie-info {
