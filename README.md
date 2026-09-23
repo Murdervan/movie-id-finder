@@ -5,7 +5,7 @@
   
   [![Repositories](https://img.shields.io/badge/Repositories-Murdervan-blue?style=for-the-badge&logo=github)](https://github.com/Murdervan?tab=repositories)
 </div><p align="center"><strong>
-Find your ID NUMBER from TMDB, IMDB & TVDB to request a movie!
+Find your ID number from TMDb, IMDb & TVDb to request movies easily on one site!
 
 
 <p align="center"><img src="image/movie-ID-finder-logo.png" width="568" alt="Movie ID Finder">
