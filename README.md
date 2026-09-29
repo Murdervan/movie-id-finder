@@ -9,9 +9,3 @@ Find your ID number from TMDb, IMDb & TVDb to request movies easily on one site!
 
 
 <p align="center"><img src="image/movie-ID-finder-logo.png" width="568" alt="Movie ID Finder">
-
-<p align="center"> 
-  
-  - Poll / voteing (removed)
-  - New Releases BOX
-</p>
