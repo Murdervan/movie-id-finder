@@ -17,9 +17,9 @@ const TRUSTED_LINKS = [
     note: "AND A NOTE IF NEEDIT"
   },
   {
-    title: "WANT YOUR WEBSITE HERE?",
-    url: "YOUR LINK HERE",
-    note: "AND A NOTE IF NEEDIT"
+    title: "Rastastugan",
+    url: "https://rastastugan.org/",
+    note: "."
   },
   {
     title: "Superbits",
