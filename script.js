@@ -28,7 +28,7 @@ const TRUSTED_LINKS = [
   },
   {
     title: "Nusens Homepage - Torrent Links",
-    url: "https://homepage.nusens.net/torrent.html",
+    url: "https://homepage.nusens.net/torrent.htm",
     note: "For more torrent links, detailed guides, and information."
   }
 ];
