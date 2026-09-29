@@ -70,11 +70,9 @@ async function loadMoviesPage(pageNum) {
   grid.innerHTML = '<p style="text-align:center; color:#ccc; grid-column:1 / -1;">Loading movies...</p>';
 
   try {
-    const today = new Date().toISOString().split("T")[0];
-
     const res = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=primary_release_date.desc&primary_release_date.lte=${today}&page=${pageNum}`
-    );
+  `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${pageNum}`
+);
 
     const data = await res.json();
 
