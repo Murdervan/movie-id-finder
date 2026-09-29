@@ -7,9 +7,9 @@ let currentMoviePage = 1;
 
 const TRUSTED_LINKS = [
   {
-    title: "WANT YOUR WEBSITE HERE?",
-    url: "YOUR LINK HERE",
-    note: "AND A NOTE IF NEEDIT"
+    title: "NordicQuality",
+    url: "https://nordicq.org/",
+    note: "Quality content for our scandinavian friends."
   },
   {
     title: "WANT YOUR WEBSITE HERE?",
@@ -24,7 +24,12 @@ const TRUSTED_LINKS = [
   {
     title: "Superbits",
     url: "https://superbits.org",
-    note: ""
+    note: "Sveriges största bittorrent tracker."
+  },
+  {
+    title: "Nusens Homepage – Torrent Page",
+    url: "https://homepage.nusens.net/torrent.htm",
+    note: "For more torrents links, guidelines and infomation"
   }
 ];
 
