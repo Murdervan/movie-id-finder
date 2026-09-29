@@ -25,6 +25,11 @@ const TRUSTED_LINKS = [
     title: "Superbits",
     url: "https://superbits.org",
     note: ""
+  },
+  {
+    title: "Nusens Homepage - Torrent Links",
+    url: "https://homepage.nusens.net/torrent.html",
+    note: "For more torrent links, detailed guides, and information."
   }
 ];
 
