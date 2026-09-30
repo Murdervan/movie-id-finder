@@ -9,7 +9,7 @@ const TRUSTED_LINKS = [
   {
     title: "NordicQuality",
     url: "https://nordicq.org/",
-    note: "Quality content for our scandinavian friends."
+    note: "OPEN for SIGN UP to 11/10-26. - Quality content for our scandinavian friends."
   },
   {
     title: "WANT YOUR WEBSITE HERE?",
@@ -19,7 +19,7 @@ const TRUSTED_LINKS = [
   {
     title: "Rastastugan",
     url: "https://rastastugan.org/",
-    note: "."
+    note: "OPEN for SIGN UP."
   },
   {
     title: "Superbits",
@@ -29,7 +29,7 @@ const TRUSTED_LINKS = [
   {
     title: "Nusens Homepage – Torrent Page",
     url: "https://homepage.nusens.net/torrent.htm",
-    note: "For more torrents links, guidelines and infomation"
+    note: "For more torrents links, guidelines and infomation."
   }
 ];
 
