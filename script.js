@@ -24,7 +24,7 @@ const TRUSTED_LINKS = [
   {
     title: "Superbits",
     url: "https://superbits.org",
-    note: "Sveriges största bittorrent tracker."
+    note: "Sveriges største bittorrent tracker."
   },
   {
     title: "Homepage NuSens - Torrent page",
@@ -76,8 +76,8 @@ async function loadMoviesPage(pageNum) {
 
   try {
     const res = await fetch(
-  `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${pageNum}`
-);
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${pageNum}`
+    );
 
     const data = await res.json();
 
@@ -126,18 +126,18 @@ async function loadMoviesPage(pageNum) {
         <div class="movie-tile">
           <div class="movie-poster-wrapper">
             <img src="${poster}" alt="${title}">
-            <div class="movie-overlay">
-              <div class="movie-meta-top">
-                <span class="meta-item">📅 ${year}</span>
-                <span class="meta-item">⭐ ${rating}</span>
-                <span class="meta-item">🔥 ${popularity}</span>
-              </div>
-              <div class="movie-genres-top">${genresText}</div>
+          </div>
+
+          <div class="movie-tile-header">
+            <div class="movie-tile-title-row">
+              <div class="movie-tile-title">${title}</div>
+              <div class="movie-tile-year">${year}</div>
+              <div class="movie-tile-rating">⭐ ${rating}</div>
             </div>
+            <div class="movie-tile-genre">${genresText}</div>
           </div>
 
           <div class="movie-info-box">
-            <div class="movie-title" title="${title}">${title}</div>
             <div class="movie-synopsis">${overviewText}</div>
 
             <div class="movie-links">
