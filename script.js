@@ -283,10 +283,14 @@ q.addEventListener("input", async () => {
 
     results.innerHTML += `
       <div class="movie">
-        <div class="poster-wrap">
-          <img src="${poster}" alt="${title}" loading="lazy">
-          <div class="poster-emoji">${item.media_type === "tv" ? "📺" : "🎬"}</div>
-          <div class="poster-type">${item.media_type === "tv" ? "TV Series" : "Movie"}</div>
+        <div class="poster-column">
+          <div class="poster-wrap">
+            <img src="${poster}" alt="${title}" loading="lazy">
+          </div>
+          <div class="poster-meta">
+            <div class="poster-emoji">${item.media_type === "tv" ? "📺" : "🎬"}</div>
+            <div class="poster-type">${item.media_type === "tv" ? "TV Series" : "Movie"}</div>
+          </div>
         </div>
         <div class="movie-info">
           <b>${title} (${year})</b>
