@@ -24,7 +24,7 @@ const TRUSTED_LINKS = [
   {
     title: "Superbits",
     url: "https://superbits.org",
-    note: "Sveriges største bittorrent tracker."
+    note: "Sveriges största bittorrent tracker."
   },
   {
     title: "Norbits",
