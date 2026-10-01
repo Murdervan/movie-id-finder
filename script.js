@@ -7,19 +7,19 @@ let currentMoviePage = 1;
 
 const TRUSTED_LINKS = [
   {
-    title: "NordicQuality",
-    url: "https://nordicq.org/",
-    note: "OPEN for SIGN UP to 11/10-26. - Quality content for our scandinavian friends."
+    title: "DanishBits",
+    url: "https://danishbits.me",
+    note: "Build On Love."
   },
   {
-    title: "WANT YOUR WEBSITE HERE?",
-    url: "YOUR LINK HERE",
-    note: "AND A NOTE IF NEEDIT"
+    title: "NordicQuality",
+    url: "https://nordicq.org",
+    note: "Quality content for our scandinavian friends."
   },
   {
     title: "Rastastugan",
-    url: "https://rastastugan.org/",
-    note: "OPEN for SIGN UP."
+    url: "https://rastastugan.org",
+    note: "Valhalla."
   },
   {
     title: "Superbits",
@@ -27,9 +27,9 @@ const TRUSTED_LINKS = [
     note: "Sveriges största bittorrent tracker."
   },
   {
-    title: "Nusens Homepage – Torrent Page",
+    title: "Homepage NuSens - Torrent page",
     url: "https://homepage.nusens.net/torrent.htm",
-    note: "For more torrents links, guidelines and infomation."
+    note: ""
   }
 ];
 
@@ -76,8 +76,8 @@ async function loadMoviesPage(pageNum) {
 
   try {
     const res = await fetch(
-  `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${pageNum}`
-);
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${pageNum}`
+    );
 
     const data = await res.json();
 
@@ -87,7 +87,6 @@ async function loadMoviesPage(pageNum) {
     }
 
     const moviesToShow = data.results.slice(0, 15);
-
     let tileHtml = "";
 
     for (const movie of moviesToShow) {
@@ -266,54 +265,21 @@ q.addEventListener("input", async () => {
     if (currentSearch !== searchId) return;
 
     const title = d.title || d.name;
-    const year = (d.release_date || d.first_air_date || "").slice(0, 4) || "N/A";
     const poster = d.poster_path
       ? `https://image.tmdb.org/t/p/w200${d.poster_path}`
       : "https://via.placeholder.com/100x150?text=No+Image";
 
-    const tmdbLink = item.media_type === "movie"
-      ? `https://www.themoviedb.org/movie/${d.id}`
-      : `https://www.themoviedb.org/tv/${d.id}`;
-
-    const imdbIdNum = d.imdb_id ? d.imdb_id.replace(/^tt/, "") : null;
-    const imdbLink = imdbIdNum ? `https://www.imdb.com/title/tt${imdbIdNum}/` : "#";
-
-    const tvdbSearch = `https://www.thetvdb.com/search?query=${encodeURIComponent(title)}`;
-    const genreBadges = d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
+    const resultType = item.media_type === "tv" ? "TV Series" : "Movie";
+    const resultEmoji = item.media_type === "tv" ? "📺" : "🎬";
 
     results.innerHTML += `
-      <div class="movie">
-        <div class="poster-column">
-          <div class="poster-wrap">
-            <img src="${poster}" alt="${title}" loading="lazy">
-          </div>
-          <div class="poster-meta">
-            <div class="poster-emoji">${item.media_type === "tv" ? "📺" : "🎬"}</div>
-            <div class="poster-type">${item.media_type === "tv" ? "TV Series" : "Movie"}</div>
-          </div>
+      <div class="search-result-card">
+        <div class="search-poster-wrap">
+          <img src="${poster}" alt="${title}" loading="lazy">
         </div>
-        <div class="movie-info">
-          <b>${title} (${year})</b>
-          <div class="badges">${genreBadges}</div>
-          <p>⭐ Rating: ${d.vote_average || "N/A"} | Votes: ${d.vote_count || 0}</p>
-          <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
-
-          <div class="id-box tmdb">
-            <a href="${tmdbLink}" target="_blank">TMDb ID: ${d.id}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
-          </div>
-
-          ${imdbIdNum ? `
-          <div class="id-box imdb">
-            <a href="${imdbLink}" target="_blank">IMDb ID: ${imdbIdNum}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${imdbIdNum}', this)">Copy</button>
-          </div>` : ""}
-
-          ${item.media_type === "tv" ? `
-          <div class="id-box tvdb">
-            <span>TheTVDb ID Page</span>
-            <a class="open-btn" href="${tvdbSearch}" target="_blank">OPEN</a>
-          </div>` : ""}
+        <div class="search-result-meta">
+          <span class="search-result-emoji">${resultEmoji}</span>
+          <span class="search-result-type">${resultType}</span>
         </div>
       </div>
     `;
