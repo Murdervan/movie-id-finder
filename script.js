@@ -9,17 +9,17 @@ const TRUSTED_LINKS = [
   {
     title: "DanishBits",
     url: "https://danishbits.me",
-    note: "Build On Love."
+    note: "Build On Love. - <b>OPEN SIGN UP NOW!</b>"
   },
   {
     title: "NordicQuality",
     url: "https://nordicq.org",
-    note: "Quality content for our scandinavian friends."
+    note: "Quality content for our scandinavian friends. - <b>OPEN SIGN UP to 11.10.2026!</b>"
   },
   {
     title: "Rastastugan",
     url: "https://rastastugan.org",
-    note: "Valhalla."
+    note: "Valhalla. - <b>OPEN SIGN UP NOW!</b>"
   },
   {
     title: "Superbits",
