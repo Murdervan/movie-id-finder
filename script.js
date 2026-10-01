@@ -27,6 +27,11 @@ const TRUSTED_LINKS = [
     note: "Sveriges største bittorrent tracker."
   },
   {
+    title: "Norbits",
+    url: "https://norbits.net/",
+    note: "En liten bit av Norge."
+  },
+  {
     title: "Homepage NuSens - Torrent page",
     url: "https://homepage.nusens.net/torrent.htm",
     note: "For more torrent links, guidelines and infomation."
