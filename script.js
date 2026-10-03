@@ -77,7 +77,7 @@ function copyText(value, event) {
 async function loadMoviesPage(pageNum) {
   currentMoviePage = pageNum;
   const grid = document.getElementById("movies-grid");
-  grid.innerHTML = '<p style="text-align:center; color:#ccc; grid-column:1 / -1;">Loading movies...</p>';
+  grid.innerHTML = '<p style="text-align:center; color:#ccc; grid-column:1 / -1;">Loading movies... Please wait...</p>';
 
   try {
     const res = await fetch(
