@@ -14,7 +14,7 @@ const TRUSTED_LINKS = [
   {
     title: "NordicQuality",
     url: "https://nordicq.org",
-    note: "Quality content for our scandinavian friends. - <b>OPEN SIGN UP to 11.10.2026!</b>"
+    note: "Quality content for our scandinavian friends."
   },
   {
     title: "Rastastugan",
