@@ -6,11 +6,7 @@ let searchId = 0;
 let currentMoviePage = 1;
 
 const TRUSTED_LINKS = [
-  {
-    title: "DanishBits",
-    url: "https://danishbits.me",
-    note: "Build On Love. - <b>OPEN SIGN UP NOW!</b>"
-  },
+  
   {
     title: "NordicQuality",
     url: "https://nordicq.org",
