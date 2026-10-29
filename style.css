@@ -829,6 +829,10 @@ footer a:hover {
   z-index: 2147483647;
   cursor: pointer;
 }
+#news-btn {
+  text-decoration: none;
+  cursor: pointer;
+}
 
 #warning-btn {
   display: flex;
