@@ -861,3 +861,35 @@ footer a:hover {
   color: white;
   text-shadow: 5px 5px 10px black;
 }
+
+/* Keep Copy and OPEN controls aligned side by side in ID rows. */
+.id-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.id-box .open-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.imdb-open-btn {
+  background: var(--imdb-color);
+  color: #121212;
+}
+
+.imdb-open-btn:hover {
+  background: #d4ac0d;
+}
+
+.id-box.tmdb .open-btn {
+  background: #01b4e4;
+}
+
+.id-box.tmdb .open-btn:hover {
+  background: #1688cc;

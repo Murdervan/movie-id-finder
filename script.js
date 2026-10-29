@@ -276,10 +276,28 @@ q.addEventListener("input", async () => {
       ? `https://www.themoviedb.org/movie/${d.id}`
       : `https://www.themoviedb.org/tv/${d.id}`;
 
-    const imdbIdNum = d.imdb_id ? d.imdb_id.replace(/^tt/, "") : null;
-    const imdbLink = imdbIdNum ? `https://www.imdb.com/title/tt${imdbIdNum}/` : "#";
+    // Fetch external IDs separately: TV series store IMDb IDs in external_ids,
+    // not necessarily in the main TV details response.
+    let imdbIdNum = d.imdb_id ? d.imdb_id.replace(/^tt/, "") : null;
+    let tvdbId = null;
 
-    const tvdbSearch = `https://www.thetvdb.com/search?query=${encodeURIComponent(title)}`;
+    try {
+      const externalIdsUrl = item.media_type === "movie"
+        ? `https://api.themoviedb.org/3/movie/${d.id}/external_ids?api_key=${API_KEY}`
+        : `https://api.themoviedb.org/3/tv/${d.id}/external_ids?api_key=${API_KEY}`;
+      const externalIds = await fetch(externalIdsUrl).then(r => r.json());
+      if (!imdbIdNum && externalIds.imdb_id) {
+        imdbIdNum = externalIds.imdb_id.replace(/^tt/, "");
+      }
+      tvdbId = externalIds.tvdb_id || null;
+    } catch {}
+
+    if (currentSearch !== searchId) return;
+
+    const imdbLink = imdbIdNum ? `https://www.imdb.com/title/tt${imdbIdNum}/` : "#";
+    const tvdbLink = tvdbId
+      ? `https://thetvdb.com/dereferrer/series/${tvdbId}`
+      : `https://www.thetvdb.com/search?query=${encodeURIComponent(title)}`;
     const genreBadges = d.genres?.map(g => `<span class="badge">${g.name}</span>`).join("") || "";
 
     results.innerHTML += `
@@ -296,20 +314,29 @@ q.addEventListener("input", async () => {
           <p>${d.overview?.slice(0,150) || "No description"}${d.overview?.length > 150 ? "..." : ""}</p>
 
           <div class="id-box tmdb">
-            <a href="${tmdbLink}" target="_blank">TMDb ID: ${d.id}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
+            <a href="${tmdbLink}" target="_blank" rel="noopener noreferrer">TMDb ID: ${d.id}</a>
+            <div class="id-actions">
+              <button class="copy-btn" onclick="copyToClipboard('${d.id}', this)">Copy</button>
+              <a class="open-btn" href="${tmdbLink}" target="_blank" rel="noopener noreferrer">OPEN</a>
+            </div>
           </div>
 
           ${imdbIdNum ? `
           <div class="id-box imdb">
-            <a href="${imdbLink}" target="_blank">IMDb ID: ${imdbIdNum}</a>
-            <button class="copy-btn" onclick="copyToClipboard('${imdbIdNum}', this)">Copy</button>
+            <a href="${imdbLink}" target="_blank" rel="noopener noreferrer">IMDb ID: ${imdbIdNum}</a>
+            <div class="id-actions">
+              <button class="copy-btn" onclick="copyToClipboard('${imdbIdNum}', this)">Copy</button>
+              <a class="open-btn imdb-open-btn" href="${imdbLink}" target="_blank" rel="noopener noreferrer">OPEN</a>
+            </div>
           </div>` : ""}
 
           ${item.media_type === "tv" ? `
           <div class="id-box tvdb">
-            <span>TheTVDb ID Page</span>
-            <a class="open-btn" href="${tvdbSearch}" target="_blank">OPEN</a>
+            <span>TVDb ID: ${tvdbId || "Not available"}</span>
+            <div class="id-actions">
+              ${tvdbId ? `<button class="copy-btn" onclick="copyToClipboard('${tvdbId}', this)">Copy</button>` : ""}
+              <a class="open-btn" href="${tvdbLink}" target="_blank" rel="noopener noreferrer">OPEN</a>
+            </div>
           </div>` : ""}
         </div>
       </div>
