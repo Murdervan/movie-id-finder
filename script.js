@@ -31,9 +31,13 @@ const TRUSTED_LINKS = [
     title: "Homepage NuSens - Torrent page",
     url: "https://homepage.nusens.net/torrent.htm",
     note: "For more torrent links, guidelines and infomation."
-  }
+  },
+  {
+    title: "Proton Mail",
+    url: "https://pr.tn/ref/KY864K0Y",
+    note: "Try Proton free for 14 days through my invite link and get US$20 in credit."
+}
 ];
-
 async function safeCopyText(value) {
   try {
     if (navigator.clipboard && window.isSecureContext) {
