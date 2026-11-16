@@ -33,7 +33,7 @@ const TRUSTED_LINKS = [
     note: "For more torrent links, guidelines and infomation."
   },
   {
-    title: "Proton Mail",
+    title: "Proton",
     url: "https://pr.tn/ref/KY864K0Y",
     note: "Try Proton free for 14 days through my invite link and get US$20 in credit."
 }
