@@ -35,7 +35,7 @@ const TRUSTED_LINKS = [
   {
     title: "Proton",
     url: "https://pr.tn/ref/KY864K0Y",
-    note: "Try <b>Proton Unlimited free</b> for 14 days through my invite link and get US$20 in credit."
+    note: "Try <b>Proton Unlimited</b> free for 14 days through my invite link and get US$20 in credit."
 }
 ];
 async function safeCopyText(value) {
